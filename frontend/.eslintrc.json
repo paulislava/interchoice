@@ -30,6 +30,7 @@
   "plugins": ["@typescript-eslint", "import", "prettier"],
   "rules": {
     "@typescript-eslint/no-unsafe-member-access": "off",
+    "@typescript-eslint/ban-types": "off",
     "linebreak-style": ["error", "windows"],
     "lines-between-class-members": ["error", "always"],
     "sort-keys": "off",

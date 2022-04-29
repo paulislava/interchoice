@@ -23,10 +23,7 @@ const commonConfig = {
             }
         }),
         new webpack.EnvironmentPlugin({
-            BACKEND_URL: '/api/v1',
-            NODE_ENV: 'development',
-            YM_ANALYTICS_ID: false,
-            WITH_DMS: false
+            BACKEND_URL: 'https://localhost:5001'
         }),
         new webpack.ProvidePlugin({
             process: 'process/browser'

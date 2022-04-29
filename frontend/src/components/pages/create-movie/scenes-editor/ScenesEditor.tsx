@@ -5,7 +5,9 @@ import ReactFlow, {
     applyNodeChanges,
     applyEdgeChanges,
     Node,
-    Edge
+    Edge,
+    SmoothStepEdge,
+    Position
 } from 'react-flow-renderer'
 import styles from './styles.styl'
 
@@ -25,9 +27,11 @@ export class ScenesEditor extends React.Component<ComponentPropsType, ComponentS
         this.state = {
             nodes: [
                 { id: '1', data: { label: 'Node 1' }, position: { x: 5, y: 5 } },
-                { id: '2', data: { label: 'Node 2' }, position: { x: 5, y: 100 } }
+                { id: '2', data: { label: 'Node 2' }, position: { x: 5, y: 100 } },
+                { id: '3', data: { label: <div>test</div> }, position: { x: 50, y: 300 } },
+                { id: '4', data: { label: 'Node 4' }, position: { x: 50, y: 200 } },
             ],
-            connections: [{ id: 'e1-2', source: '1', target: '2' }]
+            connections: []
         }
     }
 
@@ -36,11 +40,18 @@ export class ScenesEditor extends React.Component<ComponentPropsType, ComponentS
             padding: 0.2
         }
 
+        const nodes: Node[] = this.state.nodes.map(node => ({
+            ...node,
+            targetPosition: Position.Right,
+            sourcePosition: Position.Left
+        }))
+
         return (
             <div className={styles.flowchart}>
                 <ReactFlow
-                    nodes={this.state.nodes}
+                    nodes={nodes}
                     edges={this.state.connections}
+                    edgeTypes={{ default: SmoothStepEdge }}
                     onNodesChange={changes =>
                         this.setState({ nodes: applyNodeChanges(changes, this.state.nodes) })
                     }
@@ -52,6 +63,7 @@ export class ScenesEditor extends React.Component<ComponentPropsType, ComponentS
                     onConnect={connection =>
                         this.setState({ connections: addEdge(connection, this.state.connections) })
                     }
+                    onEdgesDelete={edges => this.setState({ connections: this.state.connections.filter(connection => !edges.includes(connection)) })}
                     fitView
                     fitViewOptions={fitViewOptions}
                 />

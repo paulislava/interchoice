@@ -22,7 +22,7 @@
         "root/*": ["src/*"]
       }
     },
-    "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+    "include": ["**/*.ts", "**/*.tsx", "src/hooks/message.hook.js", "src/store/page/pageinfo,ts"],
     "exclude": ["node_modules", "dist", ".vscode", "**/*.styl.d.ts"]
   }
   
