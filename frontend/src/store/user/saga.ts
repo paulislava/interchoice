@@ -5,11 +5,11 @@ import * as actions from './actions'
 import { apiCall } from 'root/utils/api-call'
 import { apiFetch } from 'root/utils/api-fetch'
 import { apiRoutes } from 'root/constants'
-import { LoginResponse } from 'root/shared/users'
+import { AuthResponse } from 'root/shared/users'
 
 function* loginUser(
   action: ActionType<typeof actions.loginUser.request>
-): Generator<Effect | Generator, void, LoginResponse> {
+): Generator<Effect | Generator, void, AuthResponse> {
   try {
     const login = yield apiCall(apiFetch, apiRoutes.login(), {
       method: 'POST',

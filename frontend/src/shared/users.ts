@@ -3,13 +3,13 @@ export interface LoginRequestPayload {
   passwordHash: string
 }
 
-export enum LoginResponseStatusCode {
+export enum AuthResponseStatusCode {
   INCORRECT_DATA = 120,
   SUCCESS = 2
 }
 
-export interface LoginResponse {
-  statusCode: LoginResponseStatusCode
+export interface AuthResponse {
+  statusCode: AuthResponseStatusCode
   message: string
   isSuccess: boolean
   value?: string
@@ -17,4 +17,14 @@ export interface LoginResponse {
 
 export interface UserInfo {
   value: string
+}
+
+export interface RegisterRequestPayload {
+  email: string
+  passwordHash: string
+  passwordHashCheck: string
+  birthDate: string
+  firstName: string
+  lastName: string
+  country: string
 }

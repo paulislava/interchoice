@@ -1,7 +1,7 @@
 import { createAction, createAsyncAction } from 'typesafe-actions'
-import { LoginRequestPayload, LoginResponse } from 'root/shared/users'
+import { LoginRequestPayload, AuthResponse } from 'root/shared/users'
 
-export interface LoginUserResponsePayload extends Partial<LoginResponse> {
+export interface LoginUserResponsePayload extends Partial<AuthResponse> {
   error?: any
 }
 
@@ -25,10 +25,10 @@ export const updateUser = createAsyncAction(
   'UPDATE_USER/FAILURE'
 )<any, any, void>()
 
-export const createUser = createAsyncAction(
-  'CREATE_USER/REQUEST',
-  'CREATE_USER/SUCCESS',
-  'CREATE_USER/FAILURE'
+export const registerUser = createAsyncAction(
+  'REGISTER_USER/REQUEST',
+  'REGISTER_USER/SUCCESS',
+  'REGISTER_USER/FAILURE'
 )<any, any, any>()
 
 export const deleteUser = createAsyncAction(
