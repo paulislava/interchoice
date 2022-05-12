@@ -12,14 +12,19 @@ let intl: IntlShape
  * @returns {Object}
  */
 const generateIntl = (props: OptionalIntlConfig): IntlShape => {
-    if (cache) {
-        cache = null
-    }
+  if (cache) {
+    cache = null
+  }
 
-    cache = createIntlCache()
+  cache = createIntlCache()
 
-    intl = createIntl(props, cache)
-    return intl
+  intl = createIntl(props, cache)
+  return intl
+}
+
+export const intlMessage = (messageId: string, defaultMessage?: string): string | undefined => {
+  const message = intl.formatMessage({ id: messageId })
+  return message != messageId ? message : defaultMessage ?? message
 }
 
 export { generateIntl, intl }

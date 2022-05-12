@@ -1,8 +1,8 @@
 import { createAction, createAsyncAction } from 'typesafe-actions'
-import { LoginRequestPayload, AuthResponse } from 'root/shared/users'
+import { LoginRequestPayload, AuthResponse, RegisterRequestPayload, UserInfo } from 'root/shared/users'
 
 export interface LoginUserResponsePayload extends Partial<AuthResponse> {
-  error?: any
+  error?: unknown
 }
 
 export const loginUser = createAsyncAction(
@@ -12,6 +12,12 @@ export const loginUser = createAsyncAction(
 )<LoginRequestPayload, string, LoginUserResponsePayload>()
 
 export const unlogin = createAction('UNLOGIN_USER')
+
+export const currentUser = createAsyncAction(
+  'CURRENT_USER/FETCH',
+  'CURRENT_USER/SUCCESS',
+  'CURRENT_USER/FAILURE'
+)<void, UserInfo, void>()
 
 export const fetchUsers = createAsyncAction(
   'FETCH_USERS/REQUEST',
@@ -29,7 +35,7 @@ export const registerUser = createAsyncAction(
   'REGISTER_USER/REQUEST',
   'REGISTER_USER/SUCCESS',
   'REGISTER_USER/FAILURE'
-)<any, any, any>()
+)<RegisterRequestPayload, string, LoginUserResponsePayload>()
 
 export const deleteUser = createAsyncAction(
   'DELETE_USER/REQUEST',

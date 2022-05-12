@@ -1,9 +1,11 @@
 import { PageInfo } from './page.store'
 
-export interface PageInfoProps {
+export interface PageInfoOwnProps {
+  pageInfo?: PageInfo
+}
+
+export interface PageInfoDispatchProps {
   setPageInfo(info: PageInfo): void
 }
 
-export interface PageInfoStateProps {
-  pageInfo: PageInfo
-}
+export type PageInfoProps = PageInfoOwnProps & PageInfoDispatchProps

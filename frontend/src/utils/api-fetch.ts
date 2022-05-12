@@ -1,7 +1,7 @@
 type ResponseMapper<T> = (data: Response) => Promise<T> | T
 
 export class FetchError extends Error {
-  constructor(message: string, readonly status: number, private readonly response: unknown) {
+  constructor(message: string, readonly status: number, readonly response: unknown) {
     super(message)
     this.name = 'FetchError'
     Object.setPrototypeOf(this, FetchError.prototype)
@@ -36,9 +36,9 @@ export async function apiFetch<T>(
     ...options,
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json',
       ...options?.headers
-    }
+    },
+    credentials: 'include'
   })
 
   if (!response.ok) {

@@ -13,16 +13,13 @@ import { Navbar } from './components/navbar'
 import { Loader } from './components/Loader'
 import 'materialize-css'
 import 'react-toastify/dist/ReactToastify.css'
+import './index.css'
 import { ApplicationStore, createApplicationStore } from './store/application.store'
+import PageProvider from 'components/common/PageProvider'
+import { AuthProvider } from 'components/common/AuthProvider'
 
 function App(): JSX.Element {
-  const { token, login, logout, userId, ready } = useAuth()
-  const isAuthenticated = !!token
-  const routes = useRoutes(isAuthenticated)
-
-  if (!ready) {
-    return <Loader />
-  }
+  const routes = useRoutes()
 
   const store: Store<ApplicationStore> = createApplicationStore()
 
@@ -31,21 +28,15 @@ function App(): JSX.Element {
   return (
     <RawIntlProvider value={intlValue}>
       <Provider store={store}>
-        <AuthContext.Provider
-          value={{
-            token,
-            login,
-            logout,
-            userId,
-            isAuthenticated
-          }}
-        >
+        <AuthProvider>
           <ToastContainer />
           <Router>
-            <Navbar />
-            {routes}
+            <PageProvider>
+              <Navbar />
+              {routes}
+            </PageProvider>
           </Router>
-        </AuthContext.Provider>
+        </AuthProvider>
       </Provider>
     </RawIntlProvider>
   )

@@ -3,3 +3,16 @@
 .react-flow__attribution {
   display: none !important
 }
+
+:root {
+  --background-1: #191919;
+  --background-2: #222222;
+  --color-1: #E32879;
+}
+
+#root {
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
+  background: var(--background-2);
+}
