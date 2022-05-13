@@ -10,6 +10,7 @@ export interface UserStore {
   loginPending: boolean
   userPending: boolean
   registerPending: boolean
+  registerSuccess: boolean
   error: actions.LoginUserResponsePayload | null
 }
 
@@ -18,6 +19,7 @@ const initialState: UserStore = {
   loginPending: false,
   userPending: false,
   registerPending: false,
+  registerSuccess: false,
   error: null
 }
 
@@ -34,6 +36,12 @@ export const userReducer: Reducer<UserStore, ActionType<typeof actions>> = (
     case getType(actions.registerUser.failure):
       toast(errorMessage(action.payload.statusCode, action.payload.message), { type: 'error' })
       return { ...state, error: action.payload, loginPending: false, registerPending: false }
+
+    case getType(actions.registerUser.request):
+      return { ...initialState, registerPending: true }
+    case getType(actions.registerUser.success):
+      return { ...initialState, registerSuccess: true }
+
     case getType(actions.currentUser.request):
       return { ...state, userPending: true }
     case getType(actions.currentUser.success):

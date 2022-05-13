@@ -1,8 +1,9 @@
 import * as React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { Field, Form } from 'react-final-form'
 import { Button } from '@material-ui/core'
+import { useEffect } from 'react'
 import { appRoutes } from 'root/appRoutes'
 import { registerUser } from 'root/store/user/user.actions'
 import { useAppSelector } from 'root/store/application.store'
@@ -12,8 +13,16 @@ import { FormInput } from 'components/common/fields/form-input/FormInput'
 
 export const RegPage = (): JSX.Element => {
   const pending = useAppSelector(state => state.user.registerPending)
+  const success = useAppSelector(state => state.user.registerSuccess)
 
   const dispatch = useDispatch()
+  const history = useHistory()
+
+  useEffect(() => {
+    if (success) {
+      history.push(appRoutes.login())
+    }
+  }, [success])
 
   return (
     <Form<RegisterFormData>

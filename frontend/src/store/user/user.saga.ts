@@ -3,13 +3,13 @@ import { SagaIterator } from 'redux-saga'
 import { call, Effect, put, takeLatest } from 'redux-saga/effects'
 import * as actions from './user.actions'
 import { apiCall } from 'root/utils/api-call'
-import { apiFetch, FetchError } from 'root/utils/api-fetch'
+import { jsonFetch, FetchError } from 'root/utils/api-fetch'
 import { apiRoutes } from 'root/constants'
 import { AuthResponse, UserInfo } from 'root/shared/users'
 
 function* loginUser(action: ActionType<typeof actions.loginUser.request>): SagaIterator {
   try {
-    const login = (yield call(apiFetch, apiRoutes.login(), {
+    const login = (yield call(jsonFetch, apiRoutes.login(), {
       method: 'POST',
       body: JSON.stringify(action.payload)
     })) as AuthResponse
@@ -30,14 +30,17 @@ function* registerUser(
   action: ActionType<typeof actions.registerUser.request>
 ): Generator<Effect | Generator, void, AuthResponse> {
   try {
-    const register = yield apiCall(apiFetch, apiRoutes.register(), {
+    const register = yield apiCall(jsonFetch, apiRoutes.register(), {
       method: 'POST',
       body: JSON.stringify(action.payload)
     })
-    if (register.isSuccess) put(actions.registerUser.success(register.value ?? ''))
-    else yield put(actions.registerUser.failure(register))
+    yield put(actions.registerUser.success(register.value ?? ''))
   } catch (e) {
-    put(actions.registerUser.failure({ error: String(e.message) }))
+    const data: actions.LoginUserResponsePayload =
+      e instanceof FetchError
+        ? (e.responseData as actions.LoginUserResponsePayload)
+        : { error: e.message }
+    yield put(actions.registerUser.failure(data))
   }
 }
 
@@ -45,7 +48,7 @@ function* currentUser(
   _action: ActionType<typeof actions.currentUser.request>
 ): Generator<Effect | Generator, void, UserInfo> {
   try {
-    const currentUser = yield apiCall(apiFetch, apiRoutes.currentUser(), {
+    const currentUser = yield apiCall(jsonFetch, apiRoutes.currentUser(), {
       method: 'GET'
     })
 

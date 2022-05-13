@@ -1,20 +1,24 @@
 import { Reducer } from 'redux'
 import { ActionType, getType } from 'typesafe-actions'
+import { toast } from 'react-toastify'
+import { concat } from 'lodash'
 import * as actions from './project.actions'
-import { ProjectFull } from 'root/shared/projects'
+import { ProjectFull, ProjectScene } from 'root/shared/projects'
 
 export interface ProjectStore {
   savePending: boolean
   getPending: boolean
   error: string | null
   value: ProjectFull | null
+  editedScene: ProjectScene | null
 }
 
 const initialState: ProjectStore = {
   savePending: false,
   getPending: false,
   error: null,
-  value: null
+  value: null,
+  editedScene: null
 }
 
 export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> = (
@@ -42,12 +46,101 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
         ...state,
         value: {
           ...state.value,
-          nodesId: [
-            ...state.value.nodesId,
+          nodes: [
+            ...state.value.nodes,
             {
               id: action.payload
             }
           ]
+        }
+      }
+
+    case getType(actions.updateScene.request):
+      return { ...state, savePending: true }
+
+    case getType(actions.updateScene.success):
+      if (!state.value) return state
+
+      return {
+        ...state,
+        value: {
+          ...state.value,
+          nodes: state.value.nodes.map(node => {
+            if (node.id != action.payload.id) return node
+            return { ...node, ...action.payload }
+          })
+        },
+        savePending: false
+      }
+
+    case getType(actions.updateScene.failure):
+      toast('Произошла ошибка при сохранении сцены', { type: 'error' })
+      return { ...state, savePending: false }
+
+    case getType(actions.setEditedScene.request):
+      return { ...state, editedScene: action.payload }
+
+    case getType(actions.deleteScene.success):
+      return {
+        ...state,
+        value: state.value && {
+          ...state.value,
+          nodes: state.value.nodes.filter(node => node.id != action.payload)
+        }
+      }
+
+    case getType(actions.updateSceneCoordinates.success):
+      return {
+        ...state,
+        value: state.value && {
+          ...state.value,
+          nodes: state.value.nodes.map(node => {
+            if (node.id != action.payload.id) return node
+            return { ...node, ...action.payload }
+          })
+        }
+      }
+
+    case getType(actions.addConnection.success):
+      return {
+        ...state,
+        value: state.value && {
+          ...state.value,
+          nodes: state.value.nodes.map(node => {
+            if (node.id === action.payload.fromId)
+              return {
+                ...node,
+                childrenGuids: concat(node.childrenGuids ?? [], action.payload.toId)
+              }
+
+            if (node.id === action.payload.toId)
+              return { ...node, parentGuids: concat(node.parentGuids ?? [], action.payload.fromId) }
+
+            return node
+          })
+        }
+      }
+
+    case getType(actions.deleteConnection.success):
+      return {
+        ...state,
+        value: state.value && {
+          ...state.value,
+          nodes: state.value.nodes.map(node => {
+            if (node.id === action.payload.fromId)
+              return {
+                ...node,
+                childrenGuids: node.childrenGuids?.filter(id => id != action.payload.toId)
+              }
+
+            if (node.id === action.payload.toId)
+              return {
+                ...node,
+                parentGuids: node.parentGuids?.filter(id => id != action.payload.fromId)
+              }
+
+            return node
+          })
         }
       }
 

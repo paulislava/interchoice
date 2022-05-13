@@ -27,6 +27,18 @@ function handleResponse<R>(response: Response, responseMapper?: ResponseMapper<R
 
 export const BASE_URL: string = process.env.BACKEND_URL ?? ''
 
+export async function jsonFetch<T>(
+  url: string,
+  options: RequestInit = {},
+  responseMapper?: ResponseMapper<T>
+): Promise<T> {
+  return apiFetch<T>(
+    url,
+    { headers: { 'Content-type': 'application/json', ...options.headers }, ...options },
+    responseMapper
+  )
+}
+
 export async function apiFetch<T>(
   url: string,
   options: RequestInit = {},

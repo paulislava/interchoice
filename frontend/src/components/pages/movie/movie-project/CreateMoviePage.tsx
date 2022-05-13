@@ -35,8 +35,15 @@ export const CreateMoviePage: React.FC = () => {
               <FormInput placeholder='Название' label='Введите название' {...props.input} />
             )}
           </Field>
-          <Field name='Overview'>
-            {props => <FileInput {...props.input} label='Выберите превью' />}
+          <Field<File | null> name='Overview'>
+            {props => (
+              <FileInput
+                {...props.input}
+                onChange={() => false}
+                onChoose={value => props.input.onChange(value)}
+                label='Выберите превью'
+              />
+            )}
           </Field>
           <Field name='ShortDescription'>
             {props => (

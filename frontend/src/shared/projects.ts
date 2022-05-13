@@ -5,12 +5,20 @@ export interface ProjectDraft {
   Overview: File
 }
 
-export interface ProjectScene {
+export interface ProjectSceneData {
+  id: string
+  name?: string
+  description?: string
+  buttonName?: string
+}
+
+export interface ProjectScene extends ProjectSceneData {
   id: string
   x?: number
   y?: number
-  name?: string
-  childrens?: string[]
+  parentGuids?: string[]
+  childrenGuids?: string[]
+  videoUrl?: string
 }
 
 export interface ProjectFull {
@@ -20,5 +28,5 @@ export interface ProjectFull {
   previewUrl?: string
   shortDescription?: string
   fullDescription?: string
-  nodesId: ProjectScene[]
+  nodes: ProjectScene[]
 }

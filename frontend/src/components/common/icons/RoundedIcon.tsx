@@ -6,13 +6,13 @@ export enum IconType {
   DELETE = 'delete.png'
 }
 
-export interface IconProps {
+export interface IconProps extends React.HTMLAttributes<HTMLDivElement> {
   type: IconType
 }
 
 export const RoundedIcon: React.FC<IconProps> = props => {
   return (
-    <div className={styles.roundedIcon}>
+    <div className={styles.roundedIcon} {...props}>
       <img className={styles.img} src={`/icons/${props.type}`} />
     </div>
   )

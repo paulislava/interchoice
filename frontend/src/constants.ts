@@ -6,5 +6,7 @@ export const apiRoutes = {
   project: (projectId: string): string => `/project/${projectId}/summary`,
   projectScenes: (projectId: string): string => `/project/${projectId}/scenes`,
   scene: (sceneId: string): string => `/scene/${sceneId}`,
-  sceneCoordinates: (sceneId: string): string => `${apiRoutes.scene(sceneId)}/coordinates`
+  sceneVideo: (sceneId): string => `${apiRoutes.scene(sceneId)}/video`,
+  sceneCoordinates: (sceneId: string): string => `${apiRoutes.scene(sceneId)}/coordinates`,
+  connection: (): string => `/nodes-connection`
 }

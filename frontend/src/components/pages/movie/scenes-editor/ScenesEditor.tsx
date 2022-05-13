@@ -15,11 +15,14 @@ import { useCallback, useEffect, useState } from 'react'
 import { Button } from '@material-ui/core'
 import styles from './styles.styl'
 import { SceneNode } from './scene-node/SceneNode'
+import { SceneEditForm } from './scene-edit/SceneEditForm'
 import withPageInfo from 'root/store/page/pageinfo'
 import { useAppSelector } from 'root/store/application.store'
 import { Loader } from 'components/Loader'
 import {
+  addConnection,
   addScene,
+  deleteConnection,
   deleteScene,
   getProject,
   updateSceneCoordinates
@@ -53,26 +56,27 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
 
   useEffect(() => {
     const nodes: Node[] =
-      project?.nodesId.map(node => ({
+      project?.nodes.map(node => ({
         id: node.id,
         position: { x: node.x ?? 0, y: node.y ?? 0 },
-        data: { label: <SceneNode name={node.name} /> },
-        targetPosition: Position.Right,
-        sourcePosition: Position.Left
+        data: { label: <SceneNode scene={node} /> },
+        targetPosition: Position.Left,
+        sourcePosition: Position.Right
       })) ?? []
     setCurrentNodes(nodes)
 
     const connections: Edge[] =
-      project?.nodesId.flatMap(
+      project?.nodes.flatMap(
         node =>
-          node.childrens?.flatMap(children => ({
-            id: `${node.id}_${children}`,
-            source: node.id,
-            target: children
+          node.parentGuids?.flatMap(parent => ({
+            id: `${parent}_${node.id}`,
+            source: parent,
+            label: node.buttonName,
+            target: node.id
           })) ?? []
       ) ?? []
     setCurrentConnections(connections)
-  }, [project?.nodesId])
+  }, [project?.nodes])
 
   const nodesChangeHandler = useCallback(
     (changes: NodeChange[]) => {
@@ -97,7 +101,7 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
     <div className={styles.flowchart}>
       <div className={styles.header}>
         <Button
-          variant='outlined'
+          variant='raised'
           onClick={() => {
             dispatch(addScene.request(projectId))
           }}
@@ -105,6 +109,7 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
           Добавить сцену +
         </Button>
       </div>
+      <SceneEditForm />
       <ReactFlow
         className={styles.flowchartContent}
         nodes={currentNodes}
@@ -114,12 +119,28 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
         onNodeDragStop={nodeDragEndHandler}
         onNodesDelete={nodes => nodes.map(node => dispatch(deleteScene.request(node.id)))}
         onEdgesChange={edges => setCurrentConnections(applyEdgeChanges(edges, currentConnections))}
-        onConnect={connection => setCurrentConnections(addEdge(connection, currentConnections))}
-        onEdgesDelete={edges =>
+        onConnect={connection => {
+          dispatch(
+            addConnection.request({
+              fromId: connection.source ?? '',
+              toId: connection.target ?? ''
+            })
+          )
+          setCurrentConnections(addEdge(connection, currentConnections))
+        }}
+        onEdgesDelete={edges => {
+          edges.map(connection =>
+            dispatch(
+              deleteConnection.request({
+                fromId: connection.source,
+                toId: connection.target
+              })
+            )
+          )
           setCurrentConnections(
             currentConnections.filter(connection => !edges.includes(connection))
           )
-        }
+        }}
         fitView
         fitViewOptions={{
           padding: 0.2
