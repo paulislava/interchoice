@@ -129,12 +129,17 @@ function* uploadSceneVideo(
   try {
     const formData = new FormData()
     formData.append('video', action.payload.video)
-    yield call(apiFetch, apiRoutes.sceneVideo(action.payload.sceneId), {
+    const response = (yield call(apiFetch, apiRoutes.sceneVideo(action.payload.sceneId), {
       method: 'PUT',
       body: formData
-    })
+    })) as ApiResponse
 
-    yield put(actions.uploadSceneVideo.success())
+    yield put(
+      actions.uploadSceneVideo.success({
+        sceneId: action.payload.sceneId,
+        videoUrl: response.value ?? ''
+      })
+    )
   } catch (e) {
     console.error(e)
     yield put(actions.uploadSceneVideo.failure())

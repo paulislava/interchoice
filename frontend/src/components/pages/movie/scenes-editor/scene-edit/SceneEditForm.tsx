@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Field, Form } from 'react-final-form'
 import { useDispatch } from 'react-redux'
 import { useMemo } from 'react'
+import { Button } from '@material-ui/core'
 import styles from './styles.styl'
 import { ProjectSceneData } from 'root/shared/projects'
 import { useAppSelector } from 'root/store/application.store'
@@ -57,7 +58,9 @@ export const SceneEditForm: React.FC = () => {
                   />
                 )}
               </Field>
-              <button type='submit'>Сохранить</button>
+              <Button type='submit' variant='raised'>
+                Сохранить
+              </Button>
             </form>
           )}
         </Form>

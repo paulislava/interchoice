@@ -7,11 +7,14 @@ import ReactFlow, {
   Edge,
   SmoothStepEdge,
   Position,
-  NodeChange
+  NodeChange,
+  useNodesState,
+  useEdgesState,
+  MarkerType
 } from 'react-flow-renderer'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button } from '@material-ui/core'
 import styles from './styles.styl'
 import { SceneNode } from './scene-node/SceneNode'
@@ -29,10 +32,124 @@ import {
 } from 'root/store/movie/project/project.actions'
 import { PageInfoProps } from 'root/store/page/page.types'
 import './styles.css'
+import { appRoutes } from 'root/appRoutes'
 
 export interface ScenesEditorRouteProps {
   movieId: string
 }
+
+export const initialNodes = [
+  {
+    id: '1',
+    type: 'input',
+    data: {
+      label: (
+        <>
+          Welcome to <strong>React Flow!</strong>
+        </>
+      )
+    },
+    position: { x: 250, y: 0 }
+  },
+  {
+    id: '2',
+    data: {
+      label: (
+        <>
+          This is a <strong>default node</strong>
+        </>
+      )
+    },
+    position: { x: 100, y: 100 }
+  },
+  {
+    id: '3',
+    data: {
+      label: (
+        <>
+          This one has a <strong>custom style</strong>
+        </>
+      )
+    },
+    position: { x: 400, y: 100 },
+    style: {
+      background: '#D6D5E6',
+      color: '#333',
+      border: '1px solid #222138',
+      width: 180
+    }
+  },
+  {
+    id: '4',
+    position: { x: 250, y: 200 },
+    data: {
+      label: 'Another default node'
+    }
+  },
+  {
+    id: '5',
+    data: {
+      label: 'Node id: 5'
+    },
+    position: { x: 250, y: 325 }
+  },
+  {
+    id: '6',
+    type: 'output',
+    data: {
+      label: (
+        <>
+          An <strong>output node</strong>
+        </>
+      )
+    },
+    position: { x: 100, y: 480 }
+  },
+  {
+    id: '7',
+    type: 'output',
+    data: { label: 'Another output node' },
+    position: { x: 400, y: 450 }
+  }
+]
+
+export const initialEdges = [
+  { id: 'e1-2', source: '1', target: '2', label: 'this is an edge label' },
+  { id: 'e1-3', source: '1', target: '3' },
+  {
+    id: 'e3-4',
+    source: '3',
+    target: '4',
+    animated: true,
+    label: 'animated edge'
+  },
+  {
+    id: 'e4-5',
+    source: '4',
+    target: '5',
+    label: 'edge with arrow head',
+    markerEnd: {
+      type: MarkerType.ArrowClosed
+    }
+  },
+  {
+    id: 'e5-6',
+    source: '5',
+    target: '6',
+    type: 'smoothstep',
+    label: 'smooth step edge'
+  },
+  {
+    id: 'e5-7',
+    source: '5',
+    target: '7',
+    type: 'step',
+    style: { stroke: '#f6ab6c' },
+    label: 'a step edge',
+    animated: true,
+    labelStyle: { fill: '#f6ab6c', fontWeight: 700 }
+  }
+]
 
 export type ScenesEditorProps = RouteComponentProps<ScenesEditorRouteProps> & PageInfoProps
 
@@ -51,11 +168,11 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
     }
   }, [projectId, project])
 
-  const [currentNodes, setCurrentNodes] = useState<Node[]>([])
-  const [currentConnections, setCurrentConnections] = useState<Edge[]>([])
+  const [nodes, setNodes, onNodesChange] = useNodesState([])
+  const [edges, setEdges, onEdgesChange] = useEdgesState([])
 
   useEffect(() => {
-    const nodes: Node[] =
+    const projectNodes: Node[] =
       project?.nodes.map(node => ({
         id: node.id,
         position: { x: node.x ?? 0, y: node.y ?? 0 },
@@ -63,9 +180,8 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
         targetPosition: Position.Left,
         sourcePosition: Position.Right
       })) ?? []
-    setCurrentNodes(nodes)
 
-    const connections: Edge[] =
+    const projectConnections: Edge[] =
       project?.nodes.flatMap(
         node =>
           node.parentGuids?.flatMap(parent => ({
@@ -75,15 +191,10 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
             target: node.id
           })) ?? []
       ) ?? []
-    setCurrentConnections(connections)
-  }, [project?.nodes])
 
-  const nodesChangeHandler = useCallback(
-    (changes: NodeChange[]) => {
-      setCurrentNodes(applyNodeChanges(changes, currentNodes))
-    },
-    [currentNodes]
-  )
+    setNodes(projectNodes)
+    setEdges(projectConnections)
+  }, [project?.nodes])
 
   const nodeDragEndHandler = (_event, node: Node): void => {
     dispatch(
@@ -108,17 +219,25 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
         >
           Добавить сцену +
         </Button>
+        <Button
+          variant='raised'
+          onClick={() => {
+            window.open(appRoutes.movie(projectId))
+          }}
+        >
+          Предварительный просмотр
+        </Button>
       </div>
       <SceneEditForm />
       <ReactFlow
         className={styles.flowchartContent}
-        nodes={currentNodes}
-        edges={currentConnections}
+        nodes={nodes}
+        edges={edges}
         edgeTypes={{ default: SmoothStepEdge }}
-        onNodesChange={nodesChangeHandler}
+        onNodesChange={onNodesChange}
         onNodeDragStop={nodeDragEndHandler}
         onNodesDelete={nodes => nodes.map(node => dispatch(deleteScene.request(node.id)))}
-        onEdgesChange={edges => setCurrentConnections(applyEdgeChanges(edges, currentConnections))}
+        onEdgesChange={onEdgesChange}
         onConnect={connection => {
           dispatch(
             addConnection.request({
@@ -126,7 +245,7 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
               toId: connection.target ?? ''
             })
           )
-          setCurrentConnections(addEdge(connection, currentConnections))
+          setEdges(addEdge(connection, edges))
         }}
         onEdgesDelete={edges => {
           edges.map(connection =>
@@ -137,9 +256,7 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
               })
             )
           )
-          setCurrentConnections(
-            currentConnections.filter(connection => !edges.includes(connection))
-          )
+          setEdges(edges.filter(connection => !edges.includes(connection)))
         }}
         fitView
         fitViewOptions={{

@@ -110,7 +110,7 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
             if (node.id === action.payload.fromId)
               return {
                 ...node,
-                childrenGuids: concat(node.childrenGuids ?? [], action.payload.toId)
+                childGuids: concat(node.childGuids ?? [], action.payload.toId)
               }
 
             if (node.id === action.payload.toId)
@@ -130,7 +130,7 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
             if (node.id === action.payload.fromId)
               return {
                 ...node,
-                childrenGuids: node.childrenGuids?.filter(id => id != action.payload.toId)
+                childGuids: node.childGuids?.filter(id => id != action.payload.toId)
               }
 
             if (node.id === action.payload.toId)
@@ -140,6 +140,22 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
               }
 
             return node
+          })
+        }
+      }
+
+    case getType(actions.uploadSceneVideo.success):
+      return {
+        ...state,
+        editedScene: state.editedScene && {
+          ...state.editedScene,
+          videoUrl: action.payload.videoUrl
+        },
+        value: state.value && {
+          ...state.value,
+          nodes: state.value.nodes.map(node => {
+            if (node.id != action.payload.sceneId) return node
+            return { ...node, videoUrl: action.payload.videoUrl }
           })
         }
       }

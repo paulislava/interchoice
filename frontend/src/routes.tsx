@@ -9,6 +9,7 @@ import { ScenesEditor } from './components/pages/movie/scenes-editor/ScenesEdito
 import { appRoutes } from './appRoutes'
 import { AuthorizedRoute } from 'components/common/AuthorizedRoute'
 import { CreateMoviePage } from 'components/pages/movie/movie-project/CreateMoviePage'
+import { MoviePlayer } from 'components/pages/movie/player/MoviePlayer'
 
 export const useRoutes = (): React.ReactNode => {
   return (
@@ -19,13 +20,15 @@ export const useRoutes = (): React.ReactNode => {
       </AuthorizedRoute>
       <Route path={appRoutes.register()} component={RegPage} exact />
 
+      <AuthorizedRoute path={appRoutes.create()} component={CreateMoviePage} exact />
+      <Route path={appRoutes.movie()} component={MoviePlayer} exact />
+
       <Route path='/profile' exact>
         <ProfilePage />
       </Route>
       <AuthorizedRoute path='/links' exact>
         <LinksPage />
       </AuthorizedRoute>
-      <AuthorizedRoute path={appRoutes.create()} component={CreateMoviePage} exact />
       <Route path='/detail/:id' exact>
         <DetailPage />
       </Route>

@@ -10,5 +10,8 @@ export const pagesInfo: Record<string, PageInfo> = {
   },
   [appRoutes.scenesEditor()]: {
     title: 'Редактор сцен'
+  },
+  [appRoutes.movie()]: {
+    title: 'Просмотр фильма'
   }
 }

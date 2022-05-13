@@ -71,8 +71,13 @@ export interface UploadSceneVideoPayload {
   sceneId: string
 }
 
+export interface UploadSceneVideoSuccessPayload {
+  sceneId: string
+  videoUrl: string
+}
+
 export const uploadSceneVideo = createAsyncAction(
   'UPLOAD_SCENE_VIDEO/REQUEST',
   'UPLOAD_SCENE_VIDEO/SUCCESS',
   'UPLOAD_SCENE_VIDEO/FAILURE'
-)<UploadSceneVideoPayload, void, void>()
+)<UploadSceneVideoPayload, UploadSceneVideoSuccessPayload, void>()

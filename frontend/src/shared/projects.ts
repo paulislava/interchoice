@@ -17,7 +17,7 @@ export interface ProjectScene extends ProjectSceneData {
   x?: number
   y?: number
   parentGuids?: string[]
-  childrenGuids?: string[]
+  childGuids?: string[]
   videoUrl?: string
 }
 
@@ -28,5 +28,6 @@ export interface ProjectFull {
   previewUrl?: string
   shortDescription?: string
   fullDescription?: string
+  firstNode?: ProjectScene
   nodes: ProjectScene[]
 }
