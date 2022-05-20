@@ -1,10 +1,6 @@
 declare namespace StylesStylNamespace {
   export interface IStylesStyl {
-    container: string
-    field: string
-    fieldContainer: string
-    focused: string
-    input: string
+    button: string
   }
 }
 

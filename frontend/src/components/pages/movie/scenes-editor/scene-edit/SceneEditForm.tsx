@@ -9,6 +9,7 @@ import { useAppSelector } from 'root/store/application.store'
 import { updateScene, uploadSceneVideo } from 'root/store/movie/project/project.actions'
 import { FormInput } from 'components/common/fields/form-input/FormInput'
 import { FileInput } from 'components/common/fields/file-input/FileInput'
+import { GradientButton } from 'components/common/buttons/gradient-button/GradientButton'
 
 export const SceneEditForm: React.FC = () => {
   const scene = useAppSelector(state => state.project.editedScene)
@@ -58,15 +59,15 @@ export const SceneEditForm: React.FC = () => {
                   />
                 )}
               </Field>
-              <Button type='submit' variant='raised'>
-                Сохранить
-              </Button>
+              <GradientButton type='submit' variant='raised'>
+                Сохранить изменения
+              </GradientButton>
             </form>
           )}
         </Form>
       </div>
       <div>
-        {scene.videoUrl && <iframe src={scene.videoUrl} />}
+        {scene.videoUrl && <video controls src={scene.videoUrl} />}
         <FileInput
           accept='video/mp4,video/x-m4v,video/*'
           onChoose={value => {

@@ -8,6 +8,8 @@
   --background-1: #191919;
   --background-2: #222222;
   --color-1: #E32879;
+  --gradient-1: linear-gradient(270deg, #9729B8 0%, #E32879 100%);
+
 }
 
 #root {

@@ -1,4 +1,5 @@
 import { Button } from '@material-ui/core'
+import { GradientButton } from 'components/common/buttons/gradient-button/GradientButton'
 import * as React from 'react'
 import { useState } from 'react'
 
@@ -8,6 +9,7 @@ export interface FileFieldProps extends React.HTMLAttributes<HTMLDivElement> {
   accept?: string
   name?: string
   onChoose(value: File | null): void
+  children?(props: FileFieldProps): void
 }
 
 export const FileInput: React.FC<FileFieldProps> = props => {
@@ -15,7 +17,7 @@ export const FileInput: React.FC<FileFieldProps> = props => {
 
   return (
     <div {...props}>
-      <Button variant='contained' component='label'>
+      <GradientButton component='label'>
         {value ? value.name : props.label ?? 'Выберите файл'}
         <input
           type='file'
@@ -28,7 +30,7 @@ export const FileInput: React.FC<FileFieldProps> = props => {
             props.onChoose(newValue)
           }}
         />
-      </Button>
+      </GradientButton>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { default as CoreTextField, TextFieldProps } from '@material-ui/core/TextField'
 import styles from './styles.styl'
+import './style.css'
 
 export type FormInputProps = TextFieldProps & {
   defaultValue?: string
@@ -16,6 +17,14 @@ export const FormInput: React.FC<FormInputProps> = props => {
         inputProps={{
           className: 'browser-default'
         }}
+        InputProps={{
+          classes: {
+            root: styles.field,
+            input: styles.input,
+            focused: styles.focused
+          }
+        }}
+        className={styles.fieldContainer}
         onChange={field => {
           if (props.onChange) props.onChange(field)
           if (props.onValueChange) props.onValueChange(field.target.value)
