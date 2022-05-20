@@ -1,6 +1,7 @@
 declare namespace StylesStylNamespace {
   export interface IStylesStyl {
     button: string
+    smallButton: string
   }
 }
 

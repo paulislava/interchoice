@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { default as CoreTextField, TextFieldProps } from '@material-ui/core/TextField'
 import styles from './styles.styl'
-import './style.css'
 
 export type FormInputProps = TextFieldProps & {
   defaultValue?: string
@@ -21,8 +20,17 @@ export const FormInput: React.FC<FormInputProps> = props => {
           classes: {
             root: styles.field,
             input: styles.input,
-            focused: styles.focused
+            focused: styles.focused,
           }
+        }}
+        InputLabelProps={{
+          classes: {
+            root: styles.label,
+            focused: styles.focusedLabel
+          }
+        }}
+        classes={{
+          root: styles.root
         }}
         className={styles.fieldContainer}
         onChange={field => {

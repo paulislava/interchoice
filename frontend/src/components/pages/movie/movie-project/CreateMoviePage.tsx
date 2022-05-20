@@ -10,6 +10,7 @@ import { createProject } from 'root/store/movie/project/project.actions'
 import { FileInput } from 'components/common/fields/file-input/FileInput'
 import { useAppSelector } from 'root/store/application.store'
 import { appRoutes } from 'root/appRoutes'
+import { GradientButton } from 'components/common/buttons/gradient-button/GradientButton'
 
 export const CreateMoviePage: React.FC = () => {
   const dispatch = useDispatch()
@@ -65,9 +66,7 @@ export const CreateMoviePage: React.FC = () => {
               />
             )}
           </Field>
-          <Button variant='outlined' type='submit'>
-            Создать фильм
-          </Button>
+          <GradientButton type='submit'>Создать фильм</GradientButton>
         </form>
       )}
     </Form>

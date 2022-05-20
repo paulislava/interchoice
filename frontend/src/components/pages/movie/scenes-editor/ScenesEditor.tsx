@@ -33,6 +33,7 @@ import {
 import { PageInfoProps } from 'root/store/page/page.types'
 import './styles.css'
 import { appRoutes } from 'root/appRoutes'
+import { GradientButton } from 'components/common/buttons/gradient-button/GradientButton'
 
 export interface ScenesEditorRouteProps {
   movieId: string
@@ -157,6 +158,8 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
   const project = useAppSelector(state => state.project.value)
   const projectId = props.match.params.movieId
   const dispatch = useDispatch()
+  
+  const addScenePending = useAppSelector(state => state.project.addScenePending)
 
   useEffect(() => {
     if (projectId && !project) dispatch(getProject.request(projectId))
@@ -211,14 +214,15 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
   return (
     <div className={styles.flowchart}>
       <div className={styles.header}>
-        <Button
-          variant='raised'
+        <GradientButton
+          size='small'
+          disabled={addScenePending}
           onClick={() => {
             dispatch(addScene.request(projectId))
           }}
         >
           Добавить сцену +
-        </Button>
+        </GradientButton>
         <Button
           variant='raised'
           onClick={() => {
@@ -239,13 +243,13 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
         onNodesDelete={nodes => nodes.map(node => dispatch(deleteScene.request(node.id)))}
         onEdgesChange={onEdgesChange}
         onConnect={connection => {
+          setEdges(addEdge(connection, edges))
           dispatch(
             addConnection.request({
               fromId: connection.source ?? '',
               toId: connection.target ?? ''
             })
           )
-          setEdges(addEdge(connection, edges))
         }}
         onEdgesDelete={edges => {
           edges.map(connection =>

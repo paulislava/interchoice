@@ -7,6 +7,7 @@ import { useAppSelector } from 'root/store/application.store'
 import { loginUser } from 'root/store/user/user.actions'
 import { appRoutes } from 'root/appRoutes'
 import { FormInput } from 'components/common/fields/form-input/FormInput'
+import { GradientButton } from 'components/common/buttons/gradient-button/GradientButton'
 
 export interface StateType {
   email: string
@@ -58,9 +59,9 @@ export const AuthPage: React.FC = () => {
             label='Пароль'
           />
         </div>
-        <Button disabled={pending} type='submit'>
+        <GradientButton disabled={pending} type='submit'>
           Войти
-        </Button>
+        </GradientButton>
 
         <NavLink to={appRoutes.register()}>Нет аккаунта</NavLink>
       </form>

@@ -47,7 +47,7 @@ export const setEditedScene = createAsyncAction(
   'SET_EDITED_SCENE/REQUEST',
   'SET_EDITED_SCENE/SUCCESS',
   'SET_EDITED_SCENE/FAILURE'
-)<ProjectScene, void, void>()
+)<ProjectScene | null, void, void>()
 
 export interface ConnectionPayload {
   fromId: string

@@ -8,6 +8,7 @@ import { ProjectFull, ProjectScene } from 'root/shared/projects'
 export interface ProjectStore {
   savePending: boolean
   getPending: boolean
+  addScenePending: boolean
   error: string | null
   value: ProjectFull | null
   editedScene: ProjectScene | null
@@ -15,6 +16,7 @@ export interface ProjectStore {
 
 const initialState: ProjectStore = {
   savePending: false,
+  addScenePending: false,
   getPending: false,
   error: null,
   value: null,
@@ -40,10 +42,13 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
     case getType(actions.getProject.failure):
       return { ...state, getPending: false }
 
+    case getType(actions.addScene.request):
+      return { ...state, addScenePending: true }
     case getType(actions.addScene.success):
       if (!state.value) return state
       return {
         ...state,
+        addScenePending: false,
         value: {
           ...state.value,
           nodes: [
@@ -54,6 +59,8 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
           ]
         }
       }
+    case getType(actions.addScene.failure):
+      return { ...state, addScenePending: false }
 
     case getType(actions.updateScene.request):
       return { ...state, savePending: true }
@@ -80,16 +87,17 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
     case getType(actions.setEditedScene.request):
       return { ...state, editedScene: action.payload }
 
-    case getType(actions.deleteScene.success):
+    case getType(actions.deleteScene.request):
       return {
         ...state,
+        editedScene: state.editedScene?.id === action.payload ? null : state.editedScene,
         value: state.value && {
           ...state.value,
           nodes: state.value.nodes.filter(node => node.id != action.payload)
         }
       }
 
-    case getType(actions.updateSceneCoordinates.success):
+    case getType(actions.updateSceneCoordinates.request):
       return {
         ...state,
         value: state.value && {
@@ -101,7 +109,7 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
         }
       }
 
-    case getType(actions.addConnection.success):
+    case getType(actions.addConnection.request):
       return {
         ...state,
         value: state.value && {
@@ -121,7 +129,7 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
         }
       }
 
-    case getType(actions.deleteConnection.success):
+    case getType(actions.deleteConnection.request):
       return {
         ...state,
         value: state.value && {

@@ -1,7 +1,10 @@
 declare namespace StylesStylNamespace {
   export interface IStylesStyl {
+    closeButton: string
     container: string
     fields: string
+    fileInput: string
+    video: string
   }
 }
 

@@ -10,6 +10,7 @@ import { useAppSelector } from 'root/store/application.store'
 import { registerFormDataToResponsePayload } from 'root/store/user/user.serializer'
 import { RegisterFormData } from 'root/store/user/user.types'
 import { FormInput } from 'components/common/fields/form-input/FormInput'
+import { GradientButton } from 'components/common/buttons/gradient-button/GradientButton'
 
 export const RegPage = (): JSX.Element => {
   const pending = useAppSelector(state => state.user.registerPending)
@@ -88,9 +89,9 @@ export const RegPage = (): JSX.Element => {
               />
             )}
           </Field>
-          <Button disabled={pending} type='submit'>
+          <GradientButton disabled={pending} type='submit'>
             Регистрация
-          </Button>
+          </GradientButton>
           <NavLink to={appRoutes.login()}>Войти</NavLink>
         </form>
       )}

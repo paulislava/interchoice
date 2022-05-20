@@ -5,7 +5,7 @@ import styles from './styles.styl'
 export const GradientButton: React.FC<ButtonProps> = props => {
   return (
     <>
-      <Button classes={{ root: styles.button  }} {...props} />
+      <Button classes={{ root: styles.button }} {...props} />
     </>
   )
 }

@@ -4,7 +4,10 @@ declare namespace StylesStylNamespace {
     field: string
     fieldContainer: string
     focused: string
+    focusedLabel: string
     input: string
+    label: string
+    root: string
   }
 }
 

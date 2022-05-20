@@ -14,6 +14,7 @@
 
   .input
     border-radius 4px
+    overflow hidden !important
 
   .focused
     label
@@ -23,3 +24,10 @@
   &>*
     display block
     width 100%
+
+.root
+  .label
+    color white
+
+  .label.focusedLabel
+    color: var(--color-1) !important
