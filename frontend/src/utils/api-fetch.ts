@@ -26,6 +26,7 @@ function handleResponse<R>(response: Response, responseMapper?: ResponseMapper<R
 }
 
 export const BASE_URL: string = process.env.BACKEND_URL ?? ''
+console.info(`BASE_URL: ${BASE_URL}`)
 
 export async function jsonFetch<T>(
   url: string,

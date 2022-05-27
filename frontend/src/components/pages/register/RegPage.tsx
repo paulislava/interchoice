@@ -2,15 +2,15 @@ import * as React from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { Field, Form } from 'react-final-form'
-import { Button } from '@material-ui/core'
 import { useEffect } from 'react'
 import { appRoutes } from 'root/appRoutes'
 import { registerUser } from 'root/store/user/user.actions'
 import { useAppSelector } from 'root/store/application.store'
 import { registerFormDataToResponsePayload } from 'root/store/user/user.serializer'
-import { RegisterFormData } from 'root/store/user/user.types'
+import { RegisterFormData, registerFormRequiredField } from 'root/store/user/user.types'
 import { FormInput } from 'components/common/fields/form-input/FormInput'
 import { GradientButton } from 'components/common/buttons/gradient-button/GradientButton'
+import { required } from 'root/helpers/validators'
 
 export const RegPage = (): JSX.Element => {
   const pending = useAppSelector(state => state.user.registerPending)
@@ -27,6 +27,13 @@ export const RegPage = (): JSX.Element => {
 
   return (
     <Form<RegisterFormData>
+      validate={values => {
+        const errors: Partial<Record<keyof RegisterFormData, React.ReactNode>> = {}
+        Object.keys(registerFormRequiredField).map(key => {
+          if (registerFormRequiredField[key]) errors[key] = required(values[key])
+        })
+        return errors
+      }}
       onSubmit={formData => {
         dispatch(registerUser.request(registerFormDataToResponsePayload(formData)))
       }}
@@ -34,11 +41,20 @@ export const RegPage = (): JSX.Element => {
       {props => (
         <form onSubmit={props.handleSubmit}>
           <Field name='firstName'>
-            {props => <FormInput placeholder='Введите имя' label='Имя' {...props.input} />}
+            {props => (
+              <FormInput placeholder='Введите имя' label='Имя' {...props.input} meta={props.meta} />
+            )}
           </Field>
 
           <Field name='lastName'>
-            {props => <FormInput placeholder='Введите фамилию' label='Фамилия' {...props.input} />}
+            {props => (
+              <FormInput
+                placeholder='Введите фамилию'
+                label='Фамилия'
+                {...props.input}
+                meta={props.meta}
+              />
+            )}
           </Field>
 
           <Field name='birthDate'>
@@ -46,14 +62,21 @@ export const RegPage = (): JSX.Element => {
               <FormInput
                 placeholder='Введите дату рождения'
                 label='Дата рождения'
+                type='date'
                 {...props.input}
+                meta={props.meta}
               />
             )}
           </Field>
 
           <Field name='country'>
             {props => (
-              <FormInput placeholder='Введите название страны' label='Страна' {...props.input} />
+              <FormInput
+                placeholder='Введите название страны'
+                label='Страна'
+                {...props.input}
+                meta={props.meta}
+              />
             )}
           </Field>
 
@@ -64,6 +87,7 @@ export const RegPage = (): JSX.Element => {
                 label='E-mail'
                 type='email'
                 {...props.input}
+                meta={props.meta}
               />
             )}
           </Field>
@@ -75,6 +99,7 @@ export const RegPage = (): JSX.Element => {
                 label='Пароль'
                 type='password'
                 {...props.input}
+                meta={props.meta}
               />
             )}
           </Field>
@@ -86,6 +111,7 @@ export const RegPage = (): JSX.Element => {
                 label='Повторите пароль'
                 type='password'
                 {...props.input}
+                meta={props.meta}
               />
             )}
           </Field>

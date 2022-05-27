@@ -10,6 +10,7 @@ const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
 const fs = require('fs');
+const DotenvWebpackPlugin = require('dotenv-webpack');
 
 const commonConfig = {
     entry: './src/index.tsx',
@@ -29,13 +30,13 @@ const commonConfig = {
                 { from: 'static' }
             ]
         }),
-        new webpack.EnvironmentPlugin({
-            BACKEND_URL: 'https://localhost:5001',
-            HTTPS: true
-        }),
         new webpack.ProvidePlugin({
             process: 'process/browser'
-        })
+        }),
+        new DotenvWebpackPlugin({
+            path: './.env', // Path to .env file (this is the default)
+            safe: true, // load .env.example (defaults to "false" which does not use dotenv-safe)
+        })  
     ],
     module: {
         rules: [
@@ -109,11 +110,11 @@ const developmentConfig = merge(commonConfig, {
         port: 3000,
         hot: true,
         quiet: false,
-        https: {
-            key: fs.readFileSync('certificate/localhost.key'),
-            cert: fs.readFileSync('certificate/localhost.crt'),
-            ca: fs.readFileSync('certificate/localhost.pem'),
-        },
+        // https: {
+        //     key: fs.readFileSync('certificate/localhost.key'),
+        //     cert: fs.readFileSync('certificate/localhost.crt'),
+        //     ca: fs.readFileSync('certificate/localhost.pem'),
+        // },
         historyApiFallback: true,
         contentBase: path.resolve(__dirname, 'src'),
         disableHostCheck: true

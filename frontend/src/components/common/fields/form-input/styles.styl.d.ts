@@ -1,6 +1,8 @@
 declare namespace StylesStylNamespace {
   export interface IStylesStyl {
     container: string
+    dirty: string
+    error: string
     field: string
     fieldContainer: string
     focused: string

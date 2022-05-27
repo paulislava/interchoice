@@ -15,7 +15,9 @@
   ],
   "settings": {
     "import/resolver": {
-      "typescript": {} // this loads <rootdir>/tsconfig.json to eslint
+      "typescript": {
+        "project": "./frontend/tsconfig.json"
+      } // this loads <rootdir>/tsconfig.json to eslint
     }
   },
   "globals": {
