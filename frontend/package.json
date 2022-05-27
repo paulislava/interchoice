@@ -126,6 +126,5 @@
         "build": "webpack --config ./webpack.production.config.js",
         "start": "webpack serve --progress",
         "eslint-fix": "eslint --ext=.ts,.tsx,.js,.jsx . --fix --quiet"
-    },
-    "proxy": "https://localhost:5001"
+    }
 }
