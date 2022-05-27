@@ -22,6 +22,9 @@ export const pageReducer: Reducer<PageStore, ActionType<typeof actions>> = (
 ): PageStore => {
   switch (action.type) {
     case getType(actions.setPageInfo):
+      if (action.payload.title) {
+        document.title = action.payload.title
+      }
       return { ...initialState, info: action.payload }
     default:
       return state

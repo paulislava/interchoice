@@ -19,7 +19,8 @@
         "middleware/*": ["src/middleware/*"],
         "types/*": ["src/types/*"],
         "sagas/*": ["src/sagas/*"],
-        "root/*": ["src/*"]
+        "root/*": ["src/*"],
+        "public/*": ["public/*"]
       }
     },
     "include": ["**/*.ts", "**/*.tsx", "src/hooks/message.hook.js", "src/store/page/pageinfo,ts"],

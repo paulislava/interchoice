@@ -1,9 +1,10 @@
-import { all, fork, Effect } from "redux-saga/effects";
+import { all, fork, Effect } from 'redux-saga/effects'
 
-import { versionInfo } from "root/utils/version";
-import userSaga from "./user/saga";
+import userSaga from './user/user.saga'
+import projectSaga from './movie/project/project.saga'
+import { versionInfo } from 'root/utils/version'
 
 export default function* rootSaga(): Generator<Effect, void, void> {
-  console.info(versionInfo());
-  yield all([fork(userSaga)]);
+  console.info(versionInfo())
+  yield all([fork(userSaga), fork(projectSaga)])
 }

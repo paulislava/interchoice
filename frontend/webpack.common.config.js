@@ -4,10 +4,12 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CustomizeRule, merge, mergeWithRules } = require('webpack-merge')
 const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const fs = require('fs');
 
 const commonConfig = {
     entry: './src/index.tsx',
@@ -21,9 +23,15 @@ const commonConfig = {
             minify: {
                 removeComments: false
             }
+        }),        
+        new CopyWebpackPlugin({
+            patterns: [
+                { from: 'static' }
+            ]
         }),
         new webpack.EnvironmentPlugin({
-            BACKEND_URL: 'https://localhost:5001'
+            BACKEND_URL: 'https://localhost:5001',
+            HTTPS: true
         }),
         new webpack.ProvidePlugin({
             process: 'process/browser'
@@ -101,6 +109,11 @@ const developmentConfig = merge(commonConfig, {
         port: 3000,
         hot: true,
         quiet: false,
+        https: {
+            key: fs.readFileSync('certificate/localhost.key'),
+            cert: fs.readFileSync('certificate/localhost.crt'),
+            ca: fs.readFileSync('certificate/localhost.pem'),
+        },
         historyApiFallback: true,
         contentBase: path.resolve(__dirname, 'src'),
         disableHostCheck: true

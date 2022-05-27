@@ -1,96 +1,100 @@
-import '../AuthPage.css'
-
-import React, { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import { useHttp } from '../../../hooks/http.hook'
-import { useMessage } from '../../../hooks/message.hook'
+import * as React from 'react'
+import { NavLink, useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Field, Form } from 'react-final-form'
+import { Button } from '@material-ui/core'
+import { useEffect } from 'react'
 import { appRoutes } from 'root/appRoutes'
+import { registerUser } from 'root/store/user/user.actions'
+import { useAppSelector } from 'root/store/application.store'
+import { registerFormDataToResponsePayload } from 'root/store/user/user.serializer'
+import { RegisterFormData } from 'root/store/user/user.types'
+import { FormInput } from 'components/common/fields/form-input/FormInput'
+import { GradientButton } from 'components/common/buttons/gradient-button/GradientButton'
 
-export const RegPage = () => {
-  const message = useMessage()
-  const { loading, request, error, clearError } = useHttp()
-  const [form, setForm] = useState({
-    email: '',
-    password: ''
-  })
+export const RegPage = (): JSX.Element => {
+  const pending = useAppSelector(state => state.user.registerPending)
+  const success = useAppSelector(state => state.user.registerSuccess)
+
+  const dispatch = useDispatch()
+  const history = useHistory()
 
   useEffect(() => {
-    message(error)
-    clearError()
-  }, [error, message, clearError])
-
-  useEffect(() => {
-    window.M.updateTextFields()
-  }, [])
-
-  const changeHandler = event => {
-    setForm({ ...form, [event.target.name]: event.target.value })
-  }
-
-  const registerHandler = async () => {
-    const data = await request('/Register', 'POST', { ...form })
-    message(data.message)
-  }
-
-  document.body.style = 'background: #23353d;'
+    if (success) {
+      history.push(appRoutes.login())
+    }
+  }, [success])
 
   return (
-    <div id='container'>
-      <div id='AuthContainer'>
-        <div id='row' className='row'>
-          <div className='col s6 offset-l3'>
-            <center>
-              <h4 style={{ color: '#FFFFFF' }}>Онлайн кинотеатр</h4>
-              <h2 style={{ color: '#FFFFFF' }}>iCinema</h2>
-            </center>
-            <div className='card' style={{ background: '#945d82' }}>
-              <div className='card-content white-text'>
-                <span className='card-title'>Авторизация</span>
+    <Form<RegisterFormData>
+      onSubmit={formData => {
+        dispatch(registerUser.request(registerFormDataToResponsePayload(formData)))
+      }}
+    >
+      {props => (
+        <form onSubmit={props.handleSubmit}>
+          <Field name='firstName'>
+            {props => <FormInput placeholder='Введите имя' label='Имя' {...props.input} />}
+          </Field>
 
-                <div>
-                  <div className='input-field'>
-                    <input
-                      placeholder='Введите email'
-                      id='email'
-                      type='text'
-                      name='email'
-                      className='yellow-input'
-                      value={form.email}
-                      onChange={changeHandler}
-                    />
-                    <label htmlFor='first_name'>Email</label>
-                  </div>
+          <Field name='lastName'>
+            {props => <FormInput placeholder='Введите фамилию' label='Фамилия' {...props.input} />}
+          </Field>
 
-                  <div className='input-field'>
-                    <input
-                      placeholder='Введите пароль'
-                      id='password'
-                      type='password'
-                      name='password'
-                      className='yellow-input'
-                      value={form.password}
-                      onChange={changeHandler}
-                    />
-                    <label htmlFor='first_name'>Пароль</label>
-                  </div>
-                </div>
-              </div>
-              <div className='card-action'>
-                <button
-                  className='btn'
-                  onClick={registerHandler}
-                  disabled={loading}
-                  style={{ background: '#5695b094', marginRight: 10 }}
-                >
-                  {' '}
-                  Регистрация
-                </button>
-                <NavLink to={appRoutes.login()}>Войти</NavLink>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          <Field name='birthDate'>
+            {props => (
+              <FormInput
+                placeholder='Введите дату рождения'
+                label='Дата рождения'
+                {...props.input}
+              />
+            )}
+          </Field>
+
+          <Field name='country'>
+            {props => (
+              <FormInput placeholder='Введите название страны' label='Страна' {...props.input} />
+            )}
+          </Field>
+
+          <Field name='email'>
+            {props => (
+              <FormInput
+                placeholder='Введите E-mail'
+                label='E-mail'
+                type='email'
+                {...props.input}
+              />
+            )}
+          </Field>
+
+          <Field name='password'>
+            {props => (
+              <FormInput
+                placeholder='Введите пароль'
+                label='Пароль'
+                type='password'
+                {...props.input}
+              />
+            )}
+          </Field>
+
+          <Field name='confirmPassword'>
+            {props => (
+              <FormInput
+                placeholder='Повторите пароль'
+                label='Повторите пароль'
+                type='password'
+                {...props.input}
+              />
+            )}
+          </Field>
+          <GradientButton disabled={pending} type='submit'>
+            Регистрация
+          </GradientButton>
+          <NavLink to={appRoutes.login()}>Войти</NavLink>
+        </form>
+      )}
+    </Form>
   )
 }

@@ -1,28 +1,31 @@
+import { ApiResponse } from './api'
+
 export interface LoginRequestPayload {
   email: string
-  passwordHash: string
+  password: string
 }
 
 export enum AuthResponseStatusCode {
-  INCORRECT_DATA = 120,
+  INCORRECT_DATA = 130,
   SUCCESS = 2
 }
 
-export interface AuthResponse {
+export interface AuthResponse extends ApiResponse {
   statusCode: AuthResponseStatusCode
-  message: string
-  isSuccess: boolean
-  value?: string
 }
 
 export interface UserInfo {
-  value: string
+  email: string
+  country: string
+  birthDate: string
+  firstName: string
+  lastName: string
 }
 
 export interface RegisterRequestPayload {
   email: string
-  passwordHash: string
-  passwordHashCheck: string
+  password: string
+  confirmPassword: string
   birthDate: string
   firstName: string
   lastName: string
