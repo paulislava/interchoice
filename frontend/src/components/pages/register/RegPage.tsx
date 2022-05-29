@@ -10,7 +10,7 @@ import { registerFormDataToResponsePayload } from 'root/store/user/user.serializ
 import { RegisterFormData, registerFormRequiredField } from 'root/store/user/user.types'
 import { FormInput } from 'components/common/fields/form-input/FormInput'
 import { GradientButton } from 'components/common/buttons/gradient-button/GradientButton'
-import { required } from 'root/helpers/validators'
+import { comparePasswords, required } from 'root/helpers/validators'
 
 export const RegPage = (): JSX.Element => {
   const pending = useAppSelector(state => state.user.registerPending)
@@ -32,6 +32,9 @@ export const RegPage = (): JSX.Element => {
         Object.keys(registerFormRequiredField).map(key => {
           if (registerFormRequiredField[key]) errors[key] = required(values[key])
         })
+        if (!errors.confirmPassword)
+          errors.confirmPassword = comparePasswords(values.password, values.confirmPassword)
+
         return errors
       }}
       onSubmit={formData => {
@@ -86,6 +89,18 @@ export const RegPage = (): JSX.Element => {
                 placeholder='Введите E-mail'
                 label='E-mail'
                 type='email'
+                {...props.input}
+                meta={props.meta}
+              />
+            )}
+          </Field>
+
+          <Field name='tel'>
+            {props => (
+              <FormInput
+                placeholder='Введите номер телефона'
+                label='Телефон'
+                type='tel'
                 {...props.input}
                 meta={props.meta}
               />
