@@ -15,7 +15,7 @@ import { PromoPage } from 'components/pages/promo/PromoPage'
 export const useRoutes = (): React.ReactNode => {
   return (
     <Switch>
-      <Route path={appRoutes.promo()} component={PromoPage} />
+      <Route path={appRoutes.promo()} exact component={PromoPage} />
       <Route path={appRoutes.login()} exact component={AuthPage} />
       <AuthorizedRoute path={appRoutes.scenesEditor()} exact>
         <ScenesEditor />
