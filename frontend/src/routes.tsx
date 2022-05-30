@@ -10,10 +10,12 @@ import { appRoutes } from './appRoutes'
 import { AuthorizedRoute } from 'components/common/AuthorizedRoute'
 import { CreateMoviePage } from 'components/pages/movie/movie-project/CreateMoviePage'
 import { MoviePlayer } from 'components/pages/movie/player/MoviePlayer'
+import { PromoPage } from 'components/pages/promo/PromoPage'
 
 export const useRoutes = (): React.ReactNode => {
   return (
     <Switch>
+      <Route path={appRoutes.promo()} component={PromoPage} />
       <Route path={appRoutes.login()} exact component={AuthPage} />
       <AuthorizedRoute path={appRoutes.scenesEditor()} exact>
         <ScenesEditor />
