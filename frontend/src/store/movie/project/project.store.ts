@@ -25,6 +25,17 @@ const initialState: ProjectStore = {
   uploadVideoPending: false
 }
 
+const changeNode = (
+  nodes: ProjectScene[],
+  nodeId: string,
+  data: Partial<ProjectScene>
+): ProjectScene[] => {
+  return nodes.map(node => {
+    if (node.id != nodeId) return node
+    return { ...node, ...data }
+  })
+}
+
 export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> = (
   state = initialState,
   action
@@ -74,10 +85,7 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
         ...state,
         value: {
           ...state.value,
-          nodes: state.value.nodes.map(node => {
-            if (node.id != action.payload.id) return node
-            return { ...node, ...action.payload }
-          })
+          nodes: changeNode(state.value.nodes, action.payload.id, action.payload)
         },
         savePending: false
       }
@@ -104,10 +112,7 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
         ...state,
         value: state.value && {
           ...state.value,
-          nodes: state.value.nodes.map(node => {
-            if (node.id != action.payload.id) return node
-            return { ...node, ...action.payload }
-          })
+          nodes: changeNode(state.value.nodes, action.payload.id, action.payload)
         }
       }
 
@@ -170,9 +175,8 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
         },
         value: state.value && {
           ...state.value,
-          nodes: state.value.nodes.map(node => {
-            if (node.id != action.payload.sceneId) return node
-            return { ...node, videoUrl: action.payload.videoUrl }
+          nodes: changeNode(state.value.nodes, action.payload.sceneId, {
+            videoUrl: action.payload.videoUrl
           })
         }
       }
