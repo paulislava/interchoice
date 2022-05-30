@@ -13,7 +13,7 @@ export const PromoPage: React.FC = () => {
 
         <p>Твой выбор. Твой стиль. Твоя история.</p>
 
-        <a href={appRoutes.create()} className='button'>
+        <a href={appRoutes.createMovie()} className='button'>
           Создать свой фильм
         </a>
       </section>
@@ -47,7 +47,7 @@ export const PromoPage: React.FC = () => {
                 </p>
               </div>
 
-              <a href={appRoutes.create()} className='button'>
+              <a href={appRoutes.createMovie()} className='button'>
                 Создай свой фильм
               </a>
             </div>
@@ -138,7 +138,7 @@ export const PromoPage: React.FC = () => {
           направлении.
         </p>
 
-        <a className='button button-bright' href={appRoutes.create()}>
+        <a className='button button-bright' href={appRoutes.createMovie()}>
           Попробовать прямо сейчас
         </a>
       </section>
@@ -172,7 +172,7 @@ export const PromoPage: React.FC = () => {
               </li>
             </ol>
 
-            <a href={appRoutes.create()} className='button'>
+            <a href={appRoutes.createMovie()} className='button'>
               Создать свой фильм
             </a>
           </div>

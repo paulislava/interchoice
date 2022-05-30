@@ -22,7 +22,7 @@ export const useRoutes = (): React.ReactNode => {
       </AuthorizedRoute>
       <Route path={appRoutes.register()} component={RegPage} exact />
 
-      <AuthorizedRoute path={appRoutes.create()} component={CreateMoviePage} exact />
+      <AuthorizedRoute path={appRoutes.createMovie()} component={CreateMoviePage} exact />
       <Route path={appRoutes.movie()} component={MoviePlayer} exact />
 
       <Route path='/profile' exact>
@@ -34,7 +34,7 @@ export const useRoutes = (): React.ReactNode => {
       <Route path='/detail/:id' exact>
         <DetailPage />
       </Route>
-      <Redirect to={appRoutes.create()} />
+      <Redirect to={appRoutes.createMovie()} />
     </Switch>
   )
 }

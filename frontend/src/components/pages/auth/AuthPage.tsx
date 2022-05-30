@@ -29,7 +29,7 @@ export const AuthPage: React.FC = () => {
   const history = useHistory()
 
   React.useEffect(() => {
-    if (user) history.push(appRoutes.create())
+    if (user) history.push(appRoutes.createMovie())
   }, [user])
 
   return (

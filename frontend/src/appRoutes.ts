@@ -4,6 +4,6 @@ export const appRoutes = {
   register: (): string => '/register',
   movie: (movieId: string = ':movieId'): string => `/movie/${movieId}`,
   scenesEditor: (movieId: string = ':movieId'): string => `${appRoutes.movie(movieId)}/scenes`,
-  create: (): string => '/movie/create',
-  promo: (): string => '/promo'
+  createMovie: (): string => '/movie/create',
+  promo: (): string => '/'
 }
