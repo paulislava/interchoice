@@ -178,7 +178,7 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
       }
 
     case getType(actions.uploadSceneVideo.failure):
-      toast('Произошла ошибка при загрузке видео.<br>Повторите попытку позже', { type: 'error' })
+      toast('Произошла ошибка при загрузке видео.\nПовторите попытку позже', { type: 'error' })
       return {
         ...state,
         uploadVideoPending: false
