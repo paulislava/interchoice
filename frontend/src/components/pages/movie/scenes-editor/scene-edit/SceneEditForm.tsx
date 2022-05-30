@@ -19,6 +19,8 @@ export const SceneEditForm: React.FC = () => {
   const scene = useAppSelector(state => state.project.editedScene)
   const dispatch = useDispatch()
 
+  const videoLoading = useAppSelector(state => state.project.uploadVideoPending)
+
   const initialValues = useMemo(() => scene, [scene?.id])
 
   if (!scene || !initialValues) return <></>
@@ -96,6 +98,7 @@ export const SceneEditForm: React.FC = () => {
       <div>
         {scene.videoUrl && <video className={styles.video} controls src={scene.videoUrl} />}
         <FileInput
+          disabled={videoLoading}
           accept='video/mp4,video/x-m4v,video/*'
           className={styles.fileInput}
           onChoose={value => {

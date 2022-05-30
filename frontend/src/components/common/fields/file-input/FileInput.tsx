@@ -1,13 +1,13 @@
-import { Button } from '@material-ui/core'
-import { GradientButton } from 'components/common/buttons/gradient-button/GradientButton'
 import * as React from 'react'
 import { useState } from 'react'
+import { GradientButton } from 'components/common/buttons/gradient-button/GradientButton'
 
 export interface FileFieldProps extends React.HTMLAttributes<HTMLDivElement> {
   label?: string
   value?: File | null
   accept?: string
   name?: string
+  disabled?: boolean
   onChoose(value: File | null): void
   children?(props: FileFieldProps): void
 }
@@ -17,7 +17,7 @@ export const FileInput: React.FC<FileFieldProps> = props => {
 
   return (
     <div {...props}>
-      <GradientButton component='label'>
+      <GradientButton disabled={props.disabled} component='label'>
         {value ? value.name : props.label ?? 'Выберите файл'}
         <input
           type='file'

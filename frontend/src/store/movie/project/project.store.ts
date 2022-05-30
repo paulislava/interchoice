@@ -12,6 +12,7 @@ export interface ProjectStore {
   error: string | null
   value: ProjectFull | null
   editedScene: ProjectScene | null
+  uploadVideoPending: boolean
 }
 
 const initialState: ProjectStore = {
@@ -20,7 +21,8 @@ const initialState: ProjectStore = {
   getPending: false,
   error: null,
   value: null,
-  editedScene: null
+  editedScene: null,
+  uploadVideoPending: false
 }
 
 export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> = (
@@ -152,9 +154,16 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
         }
       }
 
+    case getType(actions.uploadSceneVideo.request):
+      return {
+        ...state,
+        uploadVideoPending: true
+      }
+
     case getType(actions.uploadSceneVideo.success):
       return {
         ...state,
+        uploadVideoPending: false,
         editedScene: state.editedScene && {
           ...state.editedScene,
           videoUrl: action.payload.videoUrl
@@ -166,6 +175,13 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
             return { ...node, videoUrl: action.payload.videoUrl }
           })
         }
+      }
+
+    case getType(actions.uploadSceneVideo.failure):
+      toast('Произошла ошибка при загрузке видео.<br>Повторите попытку позже', { type: 'error' })
+      return {
+        ...state,
+        uploadVideoPending: false
       }
 
     default:
