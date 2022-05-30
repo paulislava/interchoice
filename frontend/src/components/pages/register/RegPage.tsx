@@ -102,6 +102,7 @@ export const RegPage = (): JSX.Element => {
                 label='Телефон'
                 type='tel'
                 {...props.input}
+                style={{ display: 'none' }}
                 meta={props.meta}
               />
             )}
