@@ -1,7 +1,6 @@
 import * as React from 'react'
 import './style.css'
-import 'public/imgs/block-2.jpg'
-import 'public/imgs/block-1-bg.jpg'
+
 import { appRoutes } from 'root/appRoutes'
 
 export const PromoPage: React.FC = () => {
