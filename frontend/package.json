@@ -132,7 +132,7 @@
         "lint": "npm run tsc-check && npm run eslint-check && npm run stylint-check",
         "lint-fix": "npm run eslint-fix",
         "build": "webpack --config ./webpack.production.config.js",
-        "prod": "webpack serve --progress --config ./webpack.production.config.js",
+        "prod": "webpack --progress --config ./webpack.production.config.js",
         "start": "webpack serve --progress",
         "eslint-fix": "eslint --ext=.ts,.tsx,.js,.jsx . --fix --quiet"
     }
