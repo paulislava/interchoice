@@ -5,7 +5,7 @@ import { appRoutes } from 'root/appRoutes'
 
 export const PromoPage: React.FC = () => {
   return (
-    <main className='site-content' id='site-content'>
+    <main className='site-content' id='promo-content'>
       <section id='block1' className='container screen flex-center'>
         <h3>Интерактивный видеоконтент</h3>
 

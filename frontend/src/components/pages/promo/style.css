@@ -49,6 +49,14 @@
   padding-top: 0;
 }
 
+#promo {
+  background: var(--color-3);
+  font-family: 'Roboto', sans-serif;
+  font-size: var(--text-size);
+  line-height: 1.18;
+  color: white;
+}
+
 h1,
 h2 {
   line-height: 1.17;
