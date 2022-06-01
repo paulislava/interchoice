@@ -11,7 +11,8 @@ export type FormInputProps<FieldValue = string> = TextFieldProps & {
 }
 
 export function FormInput<FieldValue = string>(props: FormInputProps<FieldValue>): JSX.Element {
-  const { onChange, onBlur, onFocus, onValueChange, value, ...inputProps } = props
+  const { onValueChange, ...fieldProps } = props
+  const { onChange, onBlur, onFocus, value, ...inputProps } = fieldProps
   const invalid: Boolean = Boolean(props.meta?.touched && props.meta.invalid)
 
   let type = props.type
@@ -33,7 +34,7 @@ export function FormInput<FieldValue = string>(props: FormInputProps<FieldValue>
 
   const input = (
     <CoreTextField
-      {...(mask ? inputProps : props)}
+      {...(mask ? inputProps : fieldProps)}
       type={type}
       variant='outlined'
       inputProps={{
@@ -67,7 +68,7 @@ export function FormInput<FieldValue = string>(props: FormInputProps<FieldValue>
           onChange={onChangeFinal}
           onFocus={onFocus}
           onBlur={onBlur}
-          value={String(props.value)}
+          value={String(value)}
           mask={mask}
         >
           {() => input}

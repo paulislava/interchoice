@@ -110,11 +110,11 @@ const developmentConfig = merge(commonConfig, {
         port: 3000,
         hot: true,
         quiet: false,
-        https: {
-            key: fs.readFileSync('certificate/localhost.key'),
-            cert: fs.readFileSync('certificate/localhost.crt'),
-            ca: fs.readFileSync('certificate/localhost.pem'),
-        },
+        // https: {
+        //     key: fs.readFileSync('certificate/localhost.key'),
+        //     cert: fs.readFileSync('certificate/localhost.crt'),
+        //     ca: fs.readFileSync('certificate/localhost.pem'),
+        // },
         historyApiFallback: true,
         contentBase: path.resolve(__dirname, 'src'),
         disableHostCheck: true
