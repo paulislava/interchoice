@@ -1,6 +1,5 @@
-import { ActionType, getType } from 'typesafe-actions'
 import { SagaIterator } from 'redux-saga'
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { userProjectsActions } from './user-projects.slice'
 import { jsonFetch } from 'root/utils/api-fetch'
 import { apiRoutes } from 'root/constants'

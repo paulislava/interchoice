@@ -11,6 +11,7 @@ export const UserProjectsPage: React.FC = () => {
   const dispatch = useDispatch()
 
   React.useEffect(() => {
+    console.info('Fetch user projects...')
     dispatch(userProjectsActions.fetch())
   }, [])
 
