@@ -140,7 +140,9 @@ export const RegPage = (): JSX.Element => {
             <GradientButton disabled={pending} type='submit'>
               Регистрация
             </GradientButton>
-            <NavLink to={appRoutes.login()}>Войти</NavLink>
+            <NavLink to={appRoutes.login()} className='other-auth-link'>
+              Войти
+            </NavLink>
           </form>
         )}
       </Form>

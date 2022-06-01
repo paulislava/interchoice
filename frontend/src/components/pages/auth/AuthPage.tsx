@@ -63,7 +63,9 @@ export const AuthPage: React.FC = () => {
           Войти
         </GradientButton>
 
-        <NavLink to={appRoutes.register()}>Нет аккаунта</NavLink>
+        <NavLink to={appRoutes.register()} className='other-auth-link'>
+          Нет аккаунта
+        </NavLink>
       </form>
     </div>
   )
