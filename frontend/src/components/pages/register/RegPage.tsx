@@ -141,7 +141,7 @@ export const RegPage = (): JSX.Element => {
               Регистрация
             </GradientButton>
             <NavLink to={appRoutes.login()} className='other-auth-link'>
-              Войти
+              У меня есть аккаунт
             </NavLink>
           </form>
         )}
