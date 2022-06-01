@@ -23,51 +23,53 @@ export const CreateMoviePage: React.FC = () => {
   }, [project])
 
   return (
-    <Form<ProjectDraft>
-      onSubmit={formData => {
-        dispatch(createProject.request(formData))
-      }}
-    >
-      {props => (
-        <form onSubmit={props.handleSubmit}>
-          <Field name='Name'>
-            {props => (
-              <FormInput placeholder='Название' label='Введите название' {...props.input} />
-            )}
-          </Field>
-          <Field<File | null> name='Overview'>
-            {props => (
-              <FileInput
-                {...props.input}
-                onChange={() => false}
-                onChoose={value => props.input.onChange(value)}
-                label='Выберите превью'
-              />
-            )}
-          </Field>
-          <Field name='ShortDescription'>
-            {props => (
-              <FormInput
-                placeholder='Краткое описание'
-                label='Введите краткое описание'
-                multiline={true}
-                {...props.input}
-              />
-            )}
-          </Field>
-          <Field name='FullDescription'>
-            {props => (
-              <FormInput
-                placeholder='Развернутое описание'
-                label='Введите развернутое описание'
-                multiline={true}
-                {...props.input}
-              />
-            )}
-          </Field>
-          <GradientButton type='submit'>Создать фильм</GradientButton>
-        </form>
-      )}
-    </Form>
+    <div className='container'>
+      <Form<ProjectDraft>
+        onSubmit={formData => {
+          dispatch(createProject.request(formData))
+        }}
+      >
+        {props => (
+          <form onSubmit={props.handleSubmit}>
+            <Field name='Name'>
+              {props => (
+                <FormInput placeholder='Название' label='Введите название' {...props.input} />
+              )}
+            </Field>
+            <Field<File | null> name='Overview'>
+              {props => (
+                <FileInput
+                  {...props.input}
+                  onChange={() => false}
+                  onChoose={value => props.input.onChange(value)}
+                  label='Выберите превью'
+                />
+              )}
+            </Field>
+            <Field name='ShortDescription'>
+              {props => (
+                <FormInput
+                  placeholder='Краткое описание'
+                  label='Введите краткое описание'
+                  multiline={true}
+                  {...props.input}
+                />
+              )}
+            </Field>
+            <Field name='FullDescription'>
+              {props => (
+                <FormInput
+                  placeholder='Развернутое описание'
+                  label='Введите развернутое описание'
+                  multiline={true}
+                  {...props.input}
+                />
+              )}
+            </Field>
+            <GradientButton type='submit'>Создать фильм</GradientButton>
+          </form>
+        )}
+      </Form>
+    </div>
   )
 }

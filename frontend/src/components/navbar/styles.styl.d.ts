@@ -3,6 +3,8 @@ declare namespace StylesStylNamespace {
     logo: string
     menu: string
     navigation: string
+    pageBar: string
+    pageTitle: string
     siteHeader: string
   }
 }

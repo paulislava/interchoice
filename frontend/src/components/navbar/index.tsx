@@ -25,6 +25,7 @@ export const Navbar: React.FC = () => {
                 {authorized ? (
                   <>
                     <MenuItem link={appRoutes.userProjects()}>Мои фильмы</MenuItem>
+                    <MenuItem link={appRoutes.createMovie()}>Создать фильм</MenuItem>
                   </>
                 ) : (
                   <>
@@ -37,6 +38,9 @@ export const Navbar: React.FC = () => {
           </ul>
         </nav>
       </header>
+      <div className={styles.pageBar}>
+        <div className={styles.pageTitle}>{pageInfo.title}</div>
+      </div>
     </>
   )
 }

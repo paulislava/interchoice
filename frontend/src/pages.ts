@@ -19,5 +19,8 @@ export const pagesInfo: Record<string, PageInfo> = {
   },
   [appRoutes.userProjects()]: {
     title: 'Мои фильмы'
+  },
+  [appRoutes.projectsFeed()]: {
+    title: 'Лента публикаций'
   }
 }
