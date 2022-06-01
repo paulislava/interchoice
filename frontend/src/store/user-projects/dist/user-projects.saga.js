@@ -31,13 +31,14 @@ var effects_1 = require("redux-saga/effects");
 var user_projects_slice_1 = require("./user-projects.slice");
 var api_fetch_1 = require("root/utils/api-fetch");
 var constants_1 = require("root/constants");
-function fetchUserProjects(_action) {
+function fetchUserProjects() {
     var projects, e_1;
     var _a;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 3, , 5]);
+                alert('test');
                 return [4 /*yield*/, effects_1.call(api_fetch_1.jsonFetch, constants_1.apiRoutes.userProjects())];
             case 1:
                 projects = (_b.sent());
