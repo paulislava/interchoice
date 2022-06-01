@@ -12,7 +12,7 @@ export const LogoutPage: React.FC = () => {
   const history = useHistory()
 
   React.useEffect(() => {
-    if (authorized === null) {
+    if (authorized === false) {
       history.push(appRoutes.login())
     } else {
       dispatch(logout.request())
