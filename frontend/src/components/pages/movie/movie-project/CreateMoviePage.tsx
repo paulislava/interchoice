@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { Field, Form } from 'react-final-form'
 import { useDispatch } from 'react-redux'
-import { Button } from '@material-ui/core'
 import { useHistory } from 'react-router-dom'
 import { useEffect } from 'react'
 import { FormInput } from 'components/common/fields/form-input/FormInput'

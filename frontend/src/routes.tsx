@@ -19,10 +19,11 @@ export const useRoutes = (): React.ReactNode => {
       <Route path={appRoutes.promo()} exact component={PromoPage} />
       <Route path={appRoutes.login()} exact component={AuthPage} />
       <Route path={appRoutes.register()} component={RegPage} exact />
+
+      <AuthorizedRoute path={appRoutes.createMovie()} component={CreateMoviePage} exact />
       <Route path={appRoutes.movie()} component={MoviePlayer} exact />
 
       <AuthorizedRoute path={appRoutes.scenesEditor()} component={ScenesEditor} exact />
-      <AuthorizedRoute path={appRoutes.createMovie()} component={CreateMoviePage} exact />
       <AuthorizedRoute path={appRoutes.userProjects()} component={UserProjectsPage} exact />
 
       <Redirect to={appRoutes.createMovie()} />

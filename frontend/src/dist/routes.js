@@ -17,9 +17,9 @@ exports.useRoutes = function () {
         react_1["default"].createElement(react_router_dom_1.Route, { path: appRoutes_1.appRoutes.promo(), exact: true, component: PromoPage_1.PromoPage }),
         react_1["default"].createElement(react_router_dom_1.Route, { path: appRoutes_1.appRoutes.login(), exact: true, component: AuthPage_1.AuthPage }),
         react_1["default"].createElement(react_router_dom_1.Route, { path: appRoutes_1.appRoutes.register(), component: RegPage_1.RegPage, exact: true }),
+        react_1["default"].createElement(AuthorizedRoute_1.AuthorizedRoute, { path: appRoutes_1.appRoutes.createMovie(), component: CreateMoviePage_1.CreateMoviePage, exact: true }),
         react_1["default"].createElement(react_router_dom_1.Route, { path: appRoutes_1.appRoutes.movie(), component: MoviePlayer_1.MoviePlayer, exact: true }),
         react_1["default"].createElement(AuthorizedRoute_1.AuthorizedRoute, { path: appRoutes_1.appRoutes.scenesEditor(), component: ScenesEditor_1.ScenesEditor, exact: true }),
-        react_1["default"].createElement(AuthorizedRoute_1.AuthorizedRoute, { path: appRoutes_1.appRoutes.createMovie(), component: CreateMoviePage_1.CreateMoviePage, exact: true }),
         react_1["default"].createElement(AuthorizedRoute_1.AuthorizedRoute, { path: appRoutes_1.appRoutes.userProjects(), component: UserProjects_1.UserProjectsPage, exact: true }),
         react_1["default"].createElement(react_router_dom_1.Redirect, { to: appRoutes_1.appRoutes.createMovie() })));
 };
