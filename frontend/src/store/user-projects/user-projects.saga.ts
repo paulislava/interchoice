@@ -19,5 +19,5 @@ function* fetchUserProjects(_action: ActionType<typeof userProjectsActions.fetch
 }
 
 export default function* userProjectsSaga(): SagaIterator {
-  yield takeLatest(getType(userProjectsActions.fetch), fetchUserProjects)
+  yield takeLatest(userProjectsActions.fetch, fetchUserProjects)
 }

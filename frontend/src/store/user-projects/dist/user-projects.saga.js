@@ -27,7 +27,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var typesafe_actions_1 = require("typesafe-actions");
 var effects_1 = require("redux-saga/effects");
 var user_projects_slice_1 = require("./user-projects.slice");
 var api_fetch_1 = require("root/utils/api-fetch");
@@ -60,7 +59,7 @@ function fetchUserProjects(_action) {
 function userProjectsSaga() {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, effects_1.takeLatest(typesafe_actions_1.getType(user_projects_slice_1.userProjectsActions.fetch), fetchUserProjects)];
+            case 0: return [4 /*yield*/, effects_1.takeLatest(user_projects_slice_1.userProjectsActions.fetch, fetchUserProjects)];
             case 1:
                 _a.sent();
                 return [2 /*return*/];
