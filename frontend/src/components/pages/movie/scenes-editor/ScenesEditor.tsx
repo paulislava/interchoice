@@ -1,20 +1,17 @@
 import * as React from 'react'
 import ReactFlow, {
   addEdge,
-  applyNodeChanges,
-  applyEdgeChanges,
   Node,
   Edge,
   SmoothStepEdge,
   Position,
-  NodeChange,
   useNodesState,
   useEdgesState,
   MarkerType
 } from 'react-flow-renderer'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect } from 'react'
 import { Button } from '@material-ui/core'
 import styles from './styles.styl'
 import { SceneNode } from './scene-node/SceneNode'
@@ -158,7 +155,7 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
   const project = useAppSelector(state => state.project.value)
   const projectId = props.match.params.movieId
   const dispatch = useDispatch()
-  
+
   const addScenePending = useAppSelector(state => state.project.addScenePending)
 
   useEffect(() => {
@@ -166,7 +163,12 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
 
     if (project) {
       props.setPageInfo({
-        title: `Редактор сцен: ${project.name}`
+        title: `Редактор сцен: ${project.name}`,
+        headerTitle: (
+          <>
+            Редактор сцен: <span style={{ textTransform: 'none' }}>{project.name}</span>
+          </>
+        )
       })
     }
   }, [projectId, project])
