@@ -7,5 +7,6 @@ export const appRoutes = {
   createMovie: (): string => '/movie/create',
   promo: (): string => '/',
   userProjects: (): string => '/my-movies',
-  projectsFeed: (): string => '/feed'
+  projectsFeed: (): string => '/feed',
+  logout: (): string => '/logout'
 }

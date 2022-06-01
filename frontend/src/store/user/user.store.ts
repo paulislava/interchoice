@@ -48,6 +48,10 @@ export const userReducer: Reducer<UserStore, ActionType<typeof actions>> = (
       return { ...state, userPending: false, value: action.payload }
     case getType(actions.currentUser.failure):
       return { ...state, userPending: false, value: null }
+
+    case getType(actions.logout.success):
+      return { ...state, value: null }
+
     default:
       return state
   }

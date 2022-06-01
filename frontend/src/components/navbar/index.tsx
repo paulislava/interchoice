@@ -26,6 +26,7 @@ export const Navbar: React.FC = () => {
                   <>
                     <MenuItem link={appRoutes.userProjects()}>Мои фильмы</MenuItem>
                     <MenuItem link={appRoutes.createMovie()}>Создать фильм</MenuItem>
+                    <MenuItem link={appRoutes.logout()}>Выйти</MenuItem>
                   </>
                 ) : (
                   <>

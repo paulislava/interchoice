@@ -58,8 +58,18 @@ function* currentUser(
   }
 }
 
+function* logout(): SagaIterator {
+  try {
+    yield call(jsonFetch, apiRoutes.logout())
+    yield put(actions.logout.success())
+  } catch (e) {
+    yield put(actions.logout.failure())
+  }
+}
+
 export default function* userSaga(): SagaIterator {
   yield takeLatest(getType(actions.loginUser.request), loginUser)
   yield takeLatest(getType(actions.registerUser.request), registerUser)
   yield takeLatest(getType(actions.currentUser.request), currentUser)
+  yield takeLatest(getType(actions.logout.request), logout)
 }
