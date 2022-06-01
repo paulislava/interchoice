@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Loader } from 'components/Loader'
 
 import { useAppSelector } from 'root/store/application.store'
-import { userProjectsActions } from 'root/store/projects/projects.slice'
+import { userProjectsActions } from 'root/store/user-projects/user-projects.slice'
 
 export const UserProjectsPage: React.FC = () => {
   const projects = useAppSelector(state => state.userProjects.value)
@@ -11,7 +11,6 @@ export const UserProjectsPage: React.FC = () => {
   const dispatch = useDispatch()
 
   React.useEffect(() => {
-    console.info('Fetch user projects...')
     dispatch(userProjectsActions.fetch())
   }, [])
 

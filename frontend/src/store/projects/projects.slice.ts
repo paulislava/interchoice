@@ -31,4 +31,4 @@ const projectsSlice = createSlice({
   }
 })
 
-export const { reducer: projectsReducer, actions: userProjectsActions } = projectsSlice
+export const { reducer: projectsReducer, actions: projectsActions } = projectsSlice
