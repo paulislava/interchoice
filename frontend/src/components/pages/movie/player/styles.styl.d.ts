@@ -4,6 +4,7 @@ declare namespace StylesStylNamespace {
     childrenVideo: string
     container: string
     video: string
+    videoButton: string
   }
 }
 
