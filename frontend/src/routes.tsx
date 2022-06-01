@@ -13,6 +13,7 @@ import { MoviePlayer } from 'components/pages/movie/player/MoviePlayer'
 import { PromoPage } from 'components/pages/promo/PromoPage'
 import { UserProjectsPage } from 'components/pages/user-projects/UserProjects'
 import { ProjectsFeedPage } from 'components/pages/projects-feed/ProjectsFeed'
+import { LogoutPage } from 'components/pages/LogoutPage'
 
 export const useRoutes = (): React.ReactNode => {
   return (
@@ -20,6 +21,7 @@ export const useRoutes = (): React.ReactNode => {
       <Route path={appRoutes.promo()} exact component={PromoPage} />
       <Route path={appRoutes.login()} exact component={AuthPage} />
       <Route path={appRoutes.register()} component={RegPage} exact />
+      <Route path={appRoutes.logout()} component={LogoutPage} exact />
 
       <AuthorizedRoute path={appRoutes.createMovie()} component={CreateMoviePage} exact />
       <Route path={appRoutes.movie()} component={MoviePlayer} exact />
