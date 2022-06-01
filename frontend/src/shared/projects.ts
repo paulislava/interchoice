@@ -21,13 +21,16 @@ export interface ProjectScene extends ProjectSceneData {
   videoUrl?: string
 }
 
-export interface ProjectFull {
+export interface ProjectOverview {
   projectId: string
   userId: string
   name: string
   previewUrl?: string
   shortDescription?: string
   fullDescription?: string
+}
+
+export interface ProjectFull extends ProjectOverview {
   firstNode?: ProjectScene
   nodes: ProjectScene[]
 }

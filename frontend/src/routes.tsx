@@ -11,29 +11,20 @@ import { AuthorizedRoute } from 'components/common/AuthorizedRoute'
 import { CreateMoviePage } from 'components/pages/movie/movie-project/CreateMoviePage'
 import { MoviePlayer } from 'components/pages/movie/player/MoviePlayer'
 import { PromoPage } from 'components/pages/promo/PromoPage'
+import { UserProjectsPage } from 'components/pages/user-projects/UserProjects'
 
 export const useRoutes = (): React.ReactNode => {
   return (
     <Switch>
       <Route path={appRoutes.promo()} exact component={PromoPage} />
       <Route path={appRoutes.login()} exact component={AuthPage} />
-      <AuthorizedRoute path={appRoutes.scenesEditor()} exact>
-        <ScenesEditor />
-      </AuthorizedRoute>
       <Route path={appRoutes.register()} component={RegPage} exact />
-
-      <AuthorizedRoute path={appRoutes.createMovie()} component={CreateMoviePage} exact />
       <Route path={appRoutes.movie()} component={MoviePlayer} exact />
 
-      <Route path='/profile' exact>
-        <ProfilePage />
-      </Route>
-      <AuthorizedRoute path='/links' exact>
-        <LinksPage />
-      </AuthorizedRoute>
-      <Route path='/detail/:id' exact>
-        <DetailPage />
-      </Route>
+      <AuthorizedRoute path={appRoutes.scenesEditor()} component={ScenesEditor} exact />
+      <AuthorizedRoute path={appRoutes.createMovie()} component={CreateMoviePage} exact />
+      <AuthorizedRoute path={appRoutes.userProjects()} component={UserProjectsPage} exact />
+
       <Redirect to={appRoutes.createMovie()} />
     </Switch>
   )
