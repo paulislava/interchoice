@@ -1,9 +1,13 @@
 declare namespace StylesStylNamespace {
   export interface IStylesStyl {
-    logo: string
-    menu: string
-    navigation: string
-    siteHeader: string
+    movie: string
+    movieActions: string
+    movieInfo: string
+    movieLink: string
+    moviePreview: string
+    movieTitle: string
+    moviesGrid: string
+    shortDescription: string
   }
 }
 

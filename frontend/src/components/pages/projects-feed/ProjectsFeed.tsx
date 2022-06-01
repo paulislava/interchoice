@@ -3,19 +3,17 @@ import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import styles from './styles.styl'
 import { Loader } from 'components/Loader'
-
 import { useAppSelector } from 'root/store/application.store'
-import { userProjectsActions } from 'root/store/user-projects/user-projects.slice'
 import { appRoutes } from 'root/appRoutes'
-import { GradientButton } from 'components/common/buttons/gradient-button/GradientButton'
+import { projectsActions } from 'root/store/projects/projects.slice'
 
-export const UserProjectsPage: React.FC = () => {
-  const projects = useAppSelector(state => state.userProjects.value)
-  const pending = useAppSelector(state => state.userProjects.pending)
+export const ProjectsFeedPage: React.FC = () => {
+  const projects = useAppSelector(state => state.projects.value)
+  const pending = useAppSelector(state => state.projects.pending)
   const dispatch = useDispatch()
 
   React.useEffect(() => {
-    dispatch(userProjectsActions.fetch())
+    dispatch(projectsActions.fetch())
   }, [])
 
   if (pending) {
@@ -39,11 +37,6 @@ export const UserProjectsPage: React.FC = () => {
                 <h2 className={styles.movieTitle}>{project.name}</h2>
               </NavLink>
               <div className={styles.shortDescription}>{project.shortDescription}</div>
-              <div className={styles.movieActions}>
-                <GradientButton target='_blank' href={appRoutes.scenesEditor(project.projectId)}>
-                  Редактор сцен
-                </GradientButton>
-              </div>
             </div>
           </div>
         ))}

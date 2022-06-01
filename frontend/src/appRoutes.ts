@@ -6,5 +6,6 @@ export const appRoutes = {
   scenesEditor: (movieId: string = ':movieId'): string => `${appRoutes.movie(movieId)}/scenes`,
   createMovie: (): string => '/movie/create',
   promo: (): string => '/',
-  userProjects: (): string => '/my-movies'
+  userProjects: (): string => '/my-movies',
+  projectsFeed: (): string => '/feed'
 }

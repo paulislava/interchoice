@@ -16,5 +16,8 @@ export const pagesInfo: Record<string, PageInfo> = {
   },
   [appRoutes.createMovie()]: {
     title: 'Создание фильма'
+  },
+  [appRoutes.userProjects()]: {
+    title: 'Мои фильмы'
   }
 }

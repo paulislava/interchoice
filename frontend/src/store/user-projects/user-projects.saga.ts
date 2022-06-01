@@ -7,7 +7,6 @@ import { ProjectOverview } from 'root/shared/projects'
 
 function* fetchUserProjects(): SagaIterator {
   try {
-    alert('test')
     const projects = (yield call(jsonFetch, apiRoutes.userProjects())) as ProjectOverview[]
 
     yield put(userProjectsActions.fetchSuccess(projects))

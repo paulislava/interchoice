@@ -12,6 +12,7 @@ import { CreateMoviePage } from 'components/pages/movie/movie-project/CreateMovi
 import { MoviePlayer } from 'components/pages/movie/player/MoviePlayer'
 import { PromoPage } from 'components/pages/promo/PromoPage'
 import { UserProjectsPage } from 'components/pages/user-projects/UserProjects'
+import { ProjectsFeedPage } from 'components/pages/projects-feed/ProjectsFeed'
 
 export const useRoutes = (): React.ReactNode => {
   return (
@@ -22,6 +23,8 @@ export const useRoutes = (): React.ReactNode => {
 
       <AuthorizedRoute path={appRoutes.createMovie()} component={CreateMoviePage} exact />
       <Route path={appRoutes.movie()} component={MoviePlayer} exact />
+
+      <Route path={appRoutes.projectsFeed()} component={ProjectsFeedPage} exact />
 
       <AuthorizedRoute path={appRoutes.scenesEditor()} component={ScenesEditor} exact />
       <AuthorizedRoute path={appRoutes.userProjects()} component={UserProjectsPage} exact />
