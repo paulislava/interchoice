@@ -12,6 +12,20 @@
 
 }
 
+*::-webkit-scrollbar {
+	width: 0.3vw;
+	height: 0.3vw;
+}
+ 
+*::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+*::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
 #root {
   display: flex;
   flex-flow: column;

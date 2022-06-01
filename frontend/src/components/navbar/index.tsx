@@ -38,9 +38,11 @@ export const Navbar: React.FC = () => {
           </ul>
         </nav>
       </header>
-      <div className={styles.pageBar}>
-        <div className={styles.pageTitle}>{pageInfo.title}</div>
-      </div>
+      {pageInfo.title && (
+        <div className={styles.pageBar}>
+          <div className={styles.pageTitle}>{pageInfo.title}</div>
+        </div>
+      )}
     </>
   )
 }
