@@ -1,5 +1,7 @@
 declare namespace StylesStylNamespace {
   export interface IStylesStyl {
+    menu: string
+    menuIcon: string
     movie: string
     movieActions: string
     movieInfo: string

@@ -81,6 +81,7 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
       return { ...state, savePending: true }
 
     case getType(actions.updateScene.success):
+      toast('Изменения сохранены', { type: 'success' })
       if (!state.value) return state
 
       return {

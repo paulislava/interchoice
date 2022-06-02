@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { toast } from 'react-toastify'
 import { ProjectsStore } from '../projects/projects.slice'
 import { ProjectOverview } from 'root/shared/projects'
 
@@ -22,6 +23,18 @@ const projectsSlice = createSlice({
     fetchFailure(state: ProjectsStore, action: PayloadAction<string | null>) {
       state.pending = false
       state.error = action.payload
+    },
+    delete(state: ProjectsStore, _action: PayloadAction<string>) {
+      state.pending = true
+    },
+    deleteFinish(state: ProjectsStore, action: PayloadAction<string>) {
+      toast('Проект удалён', { type: 'success' })
+      state.pending = false
+      state.value = state.value.filter(project => project.projectId !== action.payload)
+    },
+    deleteFailure(state: ProjectsStore) {
+      state.pending = false
+      toast('Ошибка при удалении проекта', { type: 'error' })
     }
   }
 })

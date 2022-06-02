@@ -26,7 +26,7 @@ function* createProject(action: ActionType<typeof actions.createProject.request>
 
 function* getProject(action: ActionType<typeof actions.getProject.request>): SagaIterator {
   try {
-    const project = (yield call(jsonFetch, apiRoutes.project(action.payload))) as ProjectFull
+    const project = (yield call(jsonFetch, apiRoutes.projectSummary(action.payload))) as ProjectFull
     yield put(actions.getProject.success(project))
   } catch (e) {
     yield put(actions.getProject.failure())

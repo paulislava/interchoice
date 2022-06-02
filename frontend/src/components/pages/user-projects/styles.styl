@@ -3,6 +3,8 @@
   grid-template-columns 1fr 1fr
   gap 1.5em
 
+
+
 .movie
   display grid
   background #3D3D3D
@@ -10,7 +12,7 @@
 
   .moviePreview
     padding-top 148%
-    height 0
+    height auto
     position relative
     & > img
       position absolute
@@ -26,9 +28,24 @@
     flex-flow column
     color white
     font-size 1.2em
+    position relative
 
+    .menuIcon
+      position absolute
+      right 1.5em
+      top 1.5em
+      width 2.5rem
+      cursor pointer
+      & > svg
+        width 100%
+        height auto
+
+    .menu
+      position absolute
+      
     .movieLink
       color inherit
+      margin-right 4rem
 
     .movieTitle
       font-weight 900

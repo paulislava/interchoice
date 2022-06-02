@@ -2,6 +2,7 @@ import * as React from 'react'
 import './style.css'
 
 import { appRoutes } from 'root/appRoutes'
+import { GradientButton } from 'components/common/buttons/gradient-button/GradientButton'
 
 export const PromoPage: React.FC = () => {
   return (
@@ -13,9 +14,7 @@ export const PromoPage: React.FC = () => {
 
         <p>Твой выбор. Твой стиль. Твоя история.</p>
 
-        <a href={appRoutes.createMovie()} className='button'>
-          Создать свой фильм
-        </a>
+        <GradientButton href={appRoutes.createMovie()}>Создать свой фильм</GradientButton>
       </section>
 
       <div className='b2'>
@@ -47,9 +46,7 @@ export const PromoPage: React.FC = () => {
                 </p>
               </div>
 
-              <a href={appRoutes.createMovie()} className='button'>
-                Создай свой фильм
-              </a>
+              <GradientButton href={appRoutes.createMovie()}>Создай свой фильм</GradientButton>
             </div>
           </div>
         </section>
@@ -138,9 +135,9 @@ export const PromoPage: React.FC = () => {
           направлении.
         </p>
 
-        <a className='button button-bright' href={appRoutes.createMovie()}>
+        <GradientButton href={appRoutes.createMovie()} className='button-bright'>
           Попробовать прямо сейчас
-        </a>
+        </GradientButton>
       </section>
 
       <section id='block6' className='container'>
@@ -172,9 +169,7 @@ export const PromoPage: React.FC = () => {
               </li>
             </ol>
 
-            <a href={appRoutes.createMovie()} className='button'>
-              Создать свой фильм
-            </a>
+            <GradientButton href={appRoutes.createMovie()}>Создать свой фильм</GradientButton>
           </div>
 
           <div id='block6-img'>
@@ -187,13 +182,17 @@ export const PromoPage: React.FC = () => {
         <div className='contacts'>
           <span className='subtitle-1'>Как связаться с нами:</span>
 
-          <span className='contact'>Телефон: +7(900)000-00-00</span>
+          <span className='contact'>
+            Телефон: <a href='tel:+7 (950) 479 01-56'>+7 (950) 479 01-56</a>
+          </span>
 
-          <span className='contact'>Е-mail: interactive-movie@info.com</span>
+          <span className='contact'>
+            Е-mail: <a href='mailto:phanfisahardina@gmail.com'>phanfisahardina@gmail.com</a>
+          </span>
         </div>
 
         <div id='copyright' className='copyright'>
-          Interchoice © 2022. Все права защищены.
+          Interchoice © {new Date().getFullYear()}. Все права защищены.
         </div>
       </footer>
     </main>
