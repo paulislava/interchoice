@@ -16,11 +16,13 @@ export const CreateMoviePage: React.FC = () => {
 
   const history = useHistory()
 
-  const project = useAppSelector(state => state.project.value)
+  const projectCreated = useAppSelector(state => state.project.projectCreated)
 
   useEffect(() => {
-    if (project) history.push(appRoutes.scenesEditor(project.projectId))
-  }, [project])
+    if (projectCreated) {
+      history.push(appRoutes.scenesEditor(projectCreated))
+    }
+  }, [projectCreated])
 
   return (
     <div className='container'>
