@@ -14,19 +14,42 @@
     z-index -100
     position absolute
     visibility hidden
+
+  .choice
+    background rgba(161, 161, 161, 0.35)
+    border-radius 1rem
+    width 20em
+    position absolute
+    top 50%
+    left 50%
+    transform translate(-50%, -50%, 0)
+    display flex
+    flex-flow column
+    align-items center
+    justify-content center
+    padding 2.5em 4em 1.7em
+  
+  .question
+    text-transform uppercase
+    font-weight 400
+    font-size 1.6em
+    line-height 1.16
+    margin-bottom 5em
+
   .buttons
     display flex
+    margin-top auto
     flex-flow row
-    justify-content center
+    justify-content space-around
     width 100%
     position absolute
     bottom 2.5em
     left 0
     
-  .videoButton
-    background: rgba(76, 76, 76, 0.34);
-    padding 1em 2em
-    min-width 15em
-    font-size 1.2em
-    color white
-    margin 0 1em
+    .videoButton
+      background rgba(76, 76, 76, 0.34)
+      padding 1em 2em
+      min-width 15em
+      font-size 1.2em
+      color white
+      margin 0 1em

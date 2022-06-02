@@ -2,7 +2,9 @@ declare namespace StylesStylNamespace {
   export interface IStylesStyl {
     buttons: string
     childrenVideo: string
+    choice: string
     container: string
+    question: string
     video: string
     videoButton: string
   }

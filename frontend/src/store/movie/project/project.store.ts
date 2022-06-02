@@ -9,6 +9,7 @@ export interface ProjectStore {
   savePending: boolean
   getPending: boolean
   addScenePending: boolean
+  projectCreated: string | null
   error: string | null
   value: ProjectFull | null
   editedScene: ProjectScene | null
@@ -19,6 +20,7 @@ const initialState: ProjectStore = {
   savePending: false,
   addScenePending: false,
   getPending: false,
+  projectCreated: null,
   error: null,
   value: null,
   editedScene: null,
@@ -44,12 +46,12 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
     case getType(actions.createProject.request):
       return { ...initialState, savePending: true }
     case getType(actions.createProject.success):
-      return { ...state, savePending: false }
+      return { ...state, projectCreated: action.payload, savePending: false }
     case getType(actions.createProject.failure):
       return { ...state, savePending: false }
 
     case getType(actions.getProject.request):
-      return { ...state, getPending: true }
+      return { ...state, projectCreated: null, getPending: true }
     case getType(actions.getProject.success):
       return { ...state, getPending: false, value: action.payload }
     case getType(actions.getProject.failure):

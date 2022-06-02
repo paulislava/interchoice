@@ -44,7 +44,7 @@
         "react-jss": "8.6.1",
         "react-load-script": "0.0.6",
         "react-redux": "^8.0.1",
-        "react-router-dom": "5.3.0",
+        "react-router-dom": "^5.3.0",
         "react-select": "4.3.1",
         "react-sticky": "6.0.3",
         "react-toastify": "^8.2.0",

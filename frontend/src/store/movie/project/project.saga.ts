@@ -18,7 +18,6 @@ function* createProject(action: ActionType<typeof actions.createProject.request>
     const projectId = response.value ?? ''
 
     yield put(actions.createProject.success(projectId))
-    yield put(actions.getProject.request(projectId))
   } catch (e) {
     yield put(actions.createProject.failure())
     console.error(e)

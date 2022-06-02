@@ -88,6 +88,15 @@ export const SceneEditForm: React.FC = () => {
                   />
                 )}
               </Field>
+              <Field name='question'>
+                {props => (
+                  <FormInput
+                    placeholder='Введите вопрос'
+                    label='Вопрос для выбора'
+                    {...props.input}
+                  />
+                )}
+              </Field>
               <GradientButton type='submit' variant='raised'>
                 Сохранить изменения
               </GradientButton>

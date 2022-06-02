@@ -84,12 +84,20 @@ export const MoviePlayer: React.FC = () => {
         />
       )}
       {(ended || sceneDuration - time <= timeLeftForShowButtons) && childrens.length > 1 && (
-        <div className={styles.buttons}>
-          {childrens.map(children => (
-            <Button className={styles.videoButton} variant='raised' key={children.id} onClick={() => setScene(children)}>
-              {children.buttonName}
-            </Button>
-          ))}
+        <div className={styles.choice}>
+          <div className={styles.question}>{scene.question ?? 'Что ты выберешь?'}</div>
+          <div className={styles.buttons}>
+            {childrens.map(children => (
+              <Button
+                className={styles.videoButton}
+                variant='raised'
+                key={children.id}
+                onClick={() => setScene(children)}
+              >
+                {children.buttonName}
+              </Button>
+            ))}
+          </div>
         </div>
       )}
     </div>

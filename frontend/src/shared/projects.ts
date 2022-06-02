@@ -16,6 +16,7 @@ export interface ProjectScene extends ProjectSceneData {
   id: string
   x?: number
   y?: number
+  question?: string
   parentGuids?: string[]
   childGuids?: string[]
   videoUrl?: string
