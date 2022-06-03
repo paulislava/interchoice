@@ -1,5 +1,6 @@
 declare namespace StylesStylNamespace {
   export interface IStylesStyl {
+    beginning: string
     flowchart: string
     flowchartContent: string
     header: string

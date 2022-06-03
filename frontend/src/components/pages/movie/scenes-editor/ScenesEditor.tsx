@@ -181,7 +181,7 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
       project?.nodes.map(node => ({
         id: node.id,
         position: { x: node.x ?? 0, y: node.y ?? 0 },
-        data: { label: <SceneNode scene={node} /> },
+        data: { label: <SceneNode isBeginning={node.id === project.firstNode?.id} scene={node} /> },
         targetPosition: Position.Left,
         sourcePosition: Position.Right
       })) ?? []

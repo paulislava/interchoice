@@ -7,14 +7,16 @@ import { deleteScene, setEditedScene } from 'root/store/movie/project/project.ac
 
 export interface SceneNodeProps {
   scene: ProjectScene
+  isBeginning?: boolean
 }
 
-export const SceneNode: React.FC<SceneNodeProps> = ({ scene }) => {
+export const SceneNode: React.FC<SceneNodeProps> = ({ scene, isBeginning }) => {
   const dispatch = useDispatch()
 
   return (
     <div>
       <div className={styles.sceneName}>{scene.name ?? 'Без названия'}</div>
+      {isBeginning && <div className={styles.beginning}>Начало фильма</div>}
       <div className={styles.sceneActions}>
         <RoundedIcon type={IconType.EDIT} onClick={() => dispatch(setEditedScene.request(scene))} />
         <RoundedIcon
