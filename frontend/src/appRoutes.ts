@@ -10,3 +10,5 @@ export const appRoutes = {
   projectsFeed: (): string => '/feed',
   logout: (): string => '/logout'
 }
+
+export const fullAppRoute = (route: string): string => `${process.env.SITE_URL}${route}`

@@ -1,3 +1,5 @@
+import { appRoutes, fullAppRoute } from './appRoutes'
+
 export const apiRoutes = {
   login: (): string => `/Login`,
   register: (): string => `/Register`,
@@ -14,3 +16,8 @@ export const apiRoutes = {
   projects: (): string => `/projects`,
   logout: (): string => `/Logout`
 }
+
+export const movieIframe = (movieId: string): string =>
+  `<iframe style="width: 100vw; height: 100vh;" src="${fullAppRoute(
+    appRoutes.movie(movieId)
+  )}" frameborder="0"></iframe>`

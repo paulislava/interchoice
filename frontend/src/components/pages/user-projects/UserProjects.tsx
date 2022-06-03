@@ -3,12 +3,14 @@ import { useDispatch } from 'react-redux'
 import { NavLink, useHistory } from 'react-router-dom'
 import { useState } from 'react'
 import { Menu, MenuItem } from '@material-ui/core'
+import { toast } from 'react-toastify'
 import styles from './styles.styl'
 import { Loader } from 'components/Loader'
 import { useAppSelector } from 'root/store/application.store'
 import { userProjectsActions } from 'root/store/user-projects/user-projects.slice'
-import { appRoutes } from 'root/appRoutes'
+import { appRoutes, fullAppRoute } from 'root/appRoutes'
 import { GradientButton } from 'components/common/buttons/gradient-button/GradientButton'
+import { movieIframe } from 'root/constants'
 
 export const UserProjectsPage: React.FC = () => {
   const projects = useAppSelector(state => state.userProjects.value)
@@ -23,6 +25,11 @@ export const UserProjectsPage: React.FC = () => {
 
   React.useEffect(() => {
     dispatch(userProjectsActions.fetch())
+  }, [])
+
+  const closeMenu = React.useCallback(() => {
+    setMenuOpened(false)
+    setAnchorEl(null)
   }, [])
 
   if (pending) {
@@ -48,8 +55,8 @@ export const UserProjectsPage: React.FC = () => {
               <div
                 className={styles.menuIcon}
                 onClick={event => {
-                  setAnchorEl(menuOpened ? null : event.currentTarget)
-                  setMenuOpened(!menuOpened)
+                  setMenuOpened(true)
+                  setAnchorEl(event.currentTarget)
                 }}
               >
                 <svg
@@ -66,14 +73,7 @@ export const UserProjectsPage: React.FC = () => {
               </div>
               {menuOpened && (
                 <div className={styles.menu}>
-                  <Menu
-                    anchorEl={anchorEl}
-                    onClose={() => {
-                      setMenuOpened(false)
-                      setAnchorEl(null)
-                    }}
-                    open={menuOpened}
-                  >
+                  <Menu anchorEl={anchorEl} onClose={closeMenu} open={menuOpened}>
                     <MenuItem onClick={() => window.open(appRoutes.movie(project.projectId))}>
                       Открыть фильм
                     </MenuItem>
@@ -83,8 +83,28 @@ export const UserProjectsPage: React.FC = () => {
                       Редактор сцен
                     </MenuItem>
                     <MenuItem
+                      onClick={async () => {
+                        await navigator.clipboard.writeText(
+                          fullAppRoute(appRoutes.movie(project.projectId))
+                        )
+                        toast('Ссылка скопирована')
+                        closeMenu()
+                      }}
+                    >
+                      Скопировать ссылку на фильм
+                    </MenuItem>
+                    <MenuItem
+                      onClick={async () => {
+                        await navigator.clipboard.writeText(movieIframe(project.projectId))
+                        toast('Код для встраивания скопирован')
+                        closeMenu()
+                      }}
+                    >
+                      Скопировать код для встраивания
+                    </MenuItem>
+                    <MenuItem
                       onClick={() => {
-                        setMenuOpened(false)
+                        closeMenu()
 
                         const deleting = confirm(
                           'Вы действительно хотите удалить фильм?\nЭта операция необратима!'
