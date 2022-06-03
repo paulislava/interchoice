@@ -182,12 +182,7 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
         id: node.id,
         position: { x: node.x ?? 0, y: node.y ?? 0 },
         data: {
-          label: (
-            <SceneNode
-              isBeginning={node.isBeginning ?? node.id === project.firstNode?.id}
-              scene={node}
-            />
-          )
+          label: <SceneNode isBeginning={node.isBeginning} scene={node} />
         },
         targetPosition: Position.Left,
         sourcePosition: Position.Right
