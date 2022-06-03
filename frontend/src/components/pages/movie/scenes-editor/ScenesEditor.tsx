@@ -193,7 +193,10 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
             id: `${parent}_${node.id}`,
             source: parent,
             label: node.buttonName,
-            target: node.id
+            target: node.id,
+            markerEnd: {
+              type: MarkerType.ArrowClosed
+            }
           })) ?? []
       ) ?? []
 
@@ -239,7 +242,6 @@ const ScenesEditorComponent: React.FC<ScenesEditorProps> = props => {
         className={styles.flowchartContent}
         nodes={nodes}
         edges={edges}
-        edgeTypes={{ default: SmoothStepEdge }}
         onNodesChange={onNodesChange}
         onNodeDragStop={nodeDragEndHandler}
         onNodesDelete={nodes => nodes.map(node => dispatch(deleteScene.request(node.id)))}
