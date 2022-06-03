@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Field, Form } from 'react-final-form'
 import { useDispatch } from 'react-redux'
 import { useMemo } from 'react'
-import { Button } from '@material-ui/core'
+import { Button, Checkbox, FormControlLabel, Switch } from '@material-ui/core'
 import styles from './styles.styl'
 import { ProjectSceneData } from 'root/shared/projects'
 import { useAppSelector } from 'root/store/application.store'
@@ -97,6 +97,25 @@ export const SceneEditForm: React.FC = () => {
                   />
                 )}
               </Field>
+              <div>
+                <Field name='isBeginning' type='checkbox'>
+                  {props => (
+                    <FormControlLabel
+                      className={styles.switchFormControl}
+                      classes={{ label: styles.switchLabel }}
+                      control={
+                        <Switch
+                          id='beginning-switch'
+                          name={props.input.name}
+                          onChange={props.input.onChange}
+                          checked={Boolean(props.input.checked)}
+                        />
+                      }
+                      label='Начало фильма'
+                    />
+                  )}
+                </Field>
+              </div>
               <GradientButton type='submit' variant='raised'>
                 Сохранить изменения
               </GradientButton>

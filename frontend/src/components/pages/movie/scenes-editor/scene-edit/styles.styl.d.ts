@@ -4,6 +4,8 @@ declare namespace StylesStylNamespace {
     container: string
     fields: string
     fileInput: string
+    switchFormControl: string
+    switchLabel: string
     video: string
   }
 }

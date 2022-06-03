@@ -33,7 +33,13 @@ const changeNode = (
   data: Partial<ProjectScene>
 ): ProjectScene[] => {
   return nodes.map(node => {
-    if (node.id != nodeId) return node
+    if (node.id != nodeId) {
+      if (data.isBeginning && node.isBeginning) {
+        return { ...node, isBeginning: false }
+      } else {
+        return node
+      }
+    }
     return { ...node, ...data }
   })
 }
@@ -88,6 +94,7 @@ export const projectReducer: Reducer<ProjectStore, ActionType<typeof actions>> =
         ...state,
         value: {
           ...state.value,
+          firstNode: action.payload.isBeginning ? action.payload : state.value.firstNode,
           nodes: changeNode(state.value.nodes, action.payload.id, action.payload)
         },
         savePending: false

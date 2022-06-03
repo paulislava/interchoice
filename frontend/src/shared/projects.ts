@@ -10,6 +10,7 @@ export interface ProjectSceneData {
   name?: string
   description?: string
   buttonName?: string
+  isBeginning?: boolean
 }
 
 export interface ProjectScene extends ProjectSceneData {
