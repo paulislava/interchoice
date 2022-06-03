@@ -33,7 +33,7 @@ export const MoviePlayer: React.FC = () => {
   useEffect(() => {
     if (project && !scene) {
       dispatch(setPageInfo({ title: project.name }))
-      setScene(project.nodes.find(node => !node.parentGuids || !node.parentGuids.length) ?? null)
+      setScene(project.firstNode ?? null)
     }
   }, [project])
 
