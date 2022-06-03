@@ -3,7 +3,6 @@ import ReactFlow, {
   addEdge,
   Node,
   Edge,
-  SmoothStepEdge,
   Position,
   useNodesState,
   useEdgesState,

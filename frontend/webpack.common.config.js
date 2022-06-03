@@ -146,14 +146,6 @@ const productionConfig = mergeWithRules({
             filename: '[name].[contenthash].css'
         })
     ],
-    module: {
-        rules: [
-            {
-                test: /\.css$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader']
-            }
-        ]
-    },
     optimization: {
         minimize: true,
         minimizer: [
